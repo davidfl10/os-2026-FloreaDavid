@@ -6,3 +6,5 @@ Laboratory works for the Operating Systems course, FCIM / FAF, UTM, 2026-2027.
 - `lab4/` – The xv6 Shell from the Outside
 - `lab5/` – The File System with Your Own Hands (Linux)
 - `lab6/` – Inside the xv6 File System
+- `lab7/` – Three Small Programs: Processes, Redirection, a Pipe (Linux)
+- `lab8/` – The Same Calls, Inside Your Own OS (xv6)
