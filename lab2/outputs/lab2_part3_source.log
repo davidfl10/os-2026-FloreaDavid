@@ -1,0 +1,205 @@
+$ sed -n "1,40p" user/ls.c
+#include "kernel/types.h"
+#include "kernel/stat.h"
+#include "user/user.h"
+#include "kernel/fs.h"
+#include "kernel/fcntl.h"
+
+char *
+fmtname(char *path)
+{
+  static char buf[DIRSIZ + 1];
+  char *p;
+
+  // Find first character after last slash.
+  for (p = path + strlen(path); p >= path && *p != '/'; p--)
+    ;
+  p++;
+
+  // Return blank-padded name.
+  if (strlen(p) >= DIRSIZ)
+    return p;
+  memmove(buf, p, strlen(p));
+  memset(buf + strlen(p), ' ', DIRSIZ - strlen(p));
+  buf[sizeof(buf) - 1] = '\0';
+  return buf;
+}
+
+void
+ls(char *path)
+{
+  char buf[512], *p;
+  int fd;
+  struct dirent de;
+  struct stat st;
+
+  if ((fd = open(path, O_RDONLY)) < 0) {
+    fprintf(2, "ls: cannot open %s\n", path);
+    return;
+  }
+
+  if (fstat(fd, &st) < 0) {
+
+$ sed -n "1,30p" user/cat.c
+#include "kernel/types.h"
+#include "kernel/fcntl.h"
+#include "user/user.h"
+
+char buf[512];
+
+void
+cat(int fd)
+{
+  int n;
+
+  while ((n = read(fd, buf, sizeof(buf))) > 0) {
+    if (write(1, buf, n) != n) {
+      fprintf(2, "cat: write error\n");
+      exit(1);
+    }
+  }
+  if (n < 0) {
+    fprintf(2, "cat: read error\n");
+    exit(1);
+  }
+}
+
+int
+main(int argc, char *argv[])
+{
+  int fd, i;
+
+  if (argc <= 1) {
+    cat(0);
+
+$ cat user/user.h
+#define SBRK_ERROR ((char *)-1)
+
+struct stat;
+
+// system calls
+int fork(void);
+int exit(int) __attribute__((noreturn));
+int wait(int *);
+int pipe(int *);
+int write(int, const void *, int);
+int read(int, void *, int);
+int close(int);
+int kill(int);
+int exec(const char *, char **);
+int open(const char *, int);
+int mknod(const char *, short, short);
+int unlink(const char *);
+int fstat(int fd, struct stat *);
+int link(const char *, const char *);
+int mkdir(const char *);
+int chdir(const char *);
+int dup(int);
+int getpid(void);
+char *sys_sbrk(int, int);
+int pause(int);
+int uptime(void);
+int sync(void);
+
+// ulib.c
+int stat(const char *, struct stat *);
+char *strcpy(char *, const char *);
+void *memmove(void *, const void *, int);
+char *strchr(const char *, char c);
+int strcmp(const char *, const char *);
+char *gets(char *, int max);
+uint strlen(const char *);
+void *memset(void *, int, uint);
+int atoi(const char *);
+int memcmp(const void *, const void *, uint);
+void *memcpy(void *, const void *, uint);
+char *sbrk(int);
+char *sbrklazy(int);
+
+// printf.c
+void fprintf(int, const char *, ...) __attribute__((format(printf, 2, 3)));
+void printf(const char *, ...) __attribute__((format(printf, 1, 2)));
+
+// umalloc.c
+void *malloc(uint);
+void free(void *);
+
+$ grep -n "sys_read\|sys_write" kernel/sysfile.c | head
+69:sys_read(void)
+83:sys_write(void)
+
+$ grep -n "read(\|write(\|open(\|close(\|exit(\|fprintf(" user/cat.c
+12:  while ((n = read(fd, buf, sizeof(buf))) > 0) {
+13:    if (write(1, buf, n) != n) {
+14:      fprintf(2, "cat: write error\n");
+15:      exit(1);
+19:    fprintf(2, "cat: read error\n");
+20:    exit(1);
+31:    exit(0);
+35:    if ((fd = open(argv[i], O_RDONLY)) < 0) {
+36:      fprintf(2, "cat: cannot open %s\n", argv[i]);
+37:      exit(1);
+40:    close(fd);
+42:  exit(0);
+
+$ sed -n "/^sys_read/,/^}/=" kernel/sysfile.c | sed -n "1p;\$p"
+69
+80
+
+$ grep -n -B1 -A12 "^sys_read" kernel/sysfile.c
+68-uint64
+69:sys_read(void)
+70-{
+71-  struct file *f;
+72-  int n;
+73-  uint64 p;
+74-
+75-  argaddr(1, &p);
+76-  argint(2, &n);
+77-  if (argfd(0, 0, &f) < 0)
+78-    return -1;
+79-  return fileread(f, p, n);
+80-}
+81-
+
+$ grep -n "sys_read\|sys_write\|sys_pause\|SYS_read\|SYS_write\|SYS_pause" kernel/syscall.c kernel/syscall.h
+kernel/syscall.c:88:extern uint64 sys_read(void);
+kernel/syscall.c:96:extern uint64 sys_pause(void);
+kernel/syscall.c:99:extern uint64 sys_write(void);
+kernel/syscall.c:115:  [SYS_read]    = sys_read,
+kernel/syscall.c:123:  [SYS_pause]   = sys_pause,
+kernel/syscall.c:126:  [SYS_write]   = sys_write,
+kernel/syscall.h:6:#define SYS_read   5
+kernel/syscall.h:14:#define SYS_pause  13
+kernel/syscall.h:17:#define SYS_write  16
+
+$ grep -n "pause\|read\|write" user/usys.pl
+28:entry("read");
+29:entry("write");
+43:entry("pause");
+
+$ grep -n -A16 "^sys_pause" kernel/sysproc.c
+68:sys_pause(void)
+69-{
+70-  int n;
+71-  uint ticks0;
+72-
+73-  argint(0, &n);
+74-  if (n < 0)
+75-    n = 0;
+76-  acquire(&tickslock);
+77-  ticks0 = ticks;
+78-  while (ticks - ticks0 < n) {
+79-    if (killed(myproc())) {
+80-      release(&tickslock);
+81-      return -1;
+82-    }
+83-    sleep_prepare(&ticks);
+84-    release(&tickslock);
+
+$ ls kernel/*.[chS] | wc -l; ls user/*.[chS] user/*.pl | wc -l; cat kernel/*.[chS] | wc -l; cat user/*.[chS] | wc -l
+44
+26
+6605
+5635
+

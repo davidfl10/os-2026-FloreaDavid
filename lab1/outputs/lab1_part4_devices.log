@@ -1,0 +1,68 @@
+$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           680M  2.4M  678M   1% /run
+/dev/sda2        20G   12G  7.5G  60% /
+tmpfs           1.7G  4.0K  1.7G   1% /dev/shm
+none            1.0M     0  1.0M   0% /run/credentials/systemd-journald.service
+none            1.0M     0  1.0M   0% /run/credentials/systemd-resolved.service
+tmpfs           1.7G  5.0M  1.7G   1% /tmp
+tmpfs           340M  5.4M  335M   2% /run/user/1000
+/dev/sr0         51M   51M     0 100% /run/media/david/VBox_GAs_7.2.20
+
+$ lsblk
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0    7:0    0  66.8M  1 loop /snap/core24/1643
+loop1    7:1    0     4K  1 loop /snap/bare/5
+loop2    7:2    0 260.3M  1 loop /snap/firefox/8763
+loop3    7:3    0    20M  1 loop /snap/desktop-security-center/151
+loop4    7:4    0  16.5M  1 loop /snap/firmware-updater/226
+loop5    7:5    0 614.5M  1 loop /snap/gnome-46-2404/164
+loop6    7:6    0  91.7M  1 loop /snap/gtk-common-themes/1535
+loop7    7:7    0   402M  1 loop /snap/mesa-2404/1839
+loop8    7:8    0   1.5M  1 loop /snap/hwctl/123
+loop9    7:9    0  18.8M  1 loop /snap/prompting-client/222
+loop10   7:10   0  50.1M  1 loop /snap/snapd/27710
+loop11   7:11   0  11.8M  1 loop /snap/snap-store/1390
+loop12   7:12   0   828K  1 loop /snap/snapd-desktop-integration/391
+sda      8:0    0    20G  0 disk 
+├─sda1   8:1    0     1M  0 part 
+└─sda2   8:2    0    20G  0 part /
+sr0     11:0    1  50.7M  1 rom  /run/media/david/VBox_GAs_7.2.20
+
+$ du -sh ~/os-lab1
+12K	/home/david/os-lab1
+
+$ ls -l /dev | head
+total 0
+crw-r--r--  1 root  root     10, 235 Oct  5 12:41 autofs
+drwxr-xr-x  2 root  root        400 Oct  5 13:49 block
+drwxr-xr-x  2 root  root         80 Oct  5 12:41 bsg
+crw-------  1 root  root     10, 234 Oct  5 12:41 btrfs-control
+drwxr-xr-x  3 root  root         60 Oct  5 13:40 bus
+lrwxrwxrwx+ 1 root  root          3 Oct  5 12:41 cdrom -> sr0
+drwxr-xr-x  2 root  root       3740 Oct  5 14:05 char
+crw-------  1 root  tty       5,   1 Oct  5 12:41 console
+lrwxrwxrwx  1 root  root         11 Oct  5 12:41 core -> /proc/kcore
+
+$ mount | head
+tmpfs on /run type tmpfs (rw,nosuid,nodev,size=696068k,nr_inodes=819200,mode=755,inode64)
+/dev/sda2 on / type ext4 (rw,relatime)
+devtmpfs on /dev type devtmpfs (rw,nosuid,size=781548k,nr_inodes=195387,mode=755,inode64)
+tmpfs on /dev/shm type tmpfs (rw,nosuid,nodev,inode64,usrquota)
+devpts on /dev/pts type devpts (rw,nosuid,noexec,relatime,gid=5,mode=600,ptmxmode=000)
+sysfs on /sys type sysfs (rw,nosuid,nodev,noexec,relatime)
+securityfs on /sys/kernel/security type securityfs (rw,nosuid,nodev,noexec,relatime)
+cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot,memory_hugetlb_accounting)
+none on /sys/fs/pstore type pstore (rw,nosuid,nodev,noexec,relatime)
+bpf on /sys/fs/bpf type bpf (rw,nosuid,nodev,noexec,relatime,mode=700)
+
+$ findmnt /
+TARGET SOURCE    FSTYPE OPTIONS
+/      /dev/sda2 ext4   rw,relatime
+
+$ ls -l /dev/null /dev/sda /dev/tty /dev/urandom
+crw-rw-rw- 1 root root 1, 3 Oct  5 12:41 /dev/null
+brw-rw---- 1 root disk 8, 0 Oct  5 12:41 /dev/sda
+crw-rw-rw- 1 root tty  5, 0 Oct  5 12:57 /dev/tty
+crw-rw-rw- 1 root root 1, 9 Oct  5 12:41 /dev/urandom
+

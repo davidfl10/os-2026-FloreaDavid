@@ -1,0 +1,451 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{dirtytalk}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codebg}{gray}{0.96}
+\lstset{
+    language=bash,
+    basicstyle=\ttfamily\footnotesize,
+    backgroundcolor=\color{codebg},
+    frame=single, rulecolor=\color{gray!40},
+    breaklines=true, columns=fullflexible,
+    keepspaces=true, showstringspaces=false, upquote=true
+}
+
+\setlength{\headheight}{14.5pt}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Operating Systems -- Lab 2}
+\rhead{Florea David, FAF-242}
+\cfoot{\thepage}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+    \IfFileExists{image.png}{\includegraphics[width=0.3\textwidth]{image.png} \\[0.2cm]}{}
+
+    \textbf{MINISTRY OF EDUCATION, CULTURE AND RESEARCH \\ OF THE REPUBLIC OF MOLDOVA} \\[0.3cm]
+
+    \textbf{Technical University of Moldova \\ Faculty of Computers, Informatics and Microelectronics \\ Department of Software and Automation Engineering} \\[2cm]
+
+    \textbf{Florea David, FAF-242}\\[0.5cm]
+
+    \Huge \textbf{Report} \\[0.5cm]
+
+    \large Laboratory work nr. 2 \\[0.5cm]
+
+    \textbf{Meet the OS You Will Build} \\[3cm]
+
+        \begin{flushright}
+        \textit{Checked by:} \\
+        \textbf{Reițman Patricia}, \textit{University Assistant} \\
+        Department of Software and Automation Engineering,
+        \\FCIM Faculty, UTM
+    \end{flushright}
+    \vfill
+
+    Chișinău -- 2026
+\end{center}
+\end{titlepage}
+
+\newpage
+
+\section*{Setup}
+Track B (xv6). Ubuntu 26.04.1 LTS VM, cross-compiler \texttt{riscv64-linux-gnu-gcc}.
+\begin{lstlisting}[language=bash]
+cd ~/xv6-riscv 2>/dev/null || \
+  git clone https://github.com/mit-pdos/xv6-riscv ~/xv6-riscv
+cd ~/xv6-riscv
+git log -1 --format="%h %ad %s" --date=short
+ls -l
+riscv64-linux-gnu-gcc --version | head -1
+\end{lstlisting}
+\begin{lstlisting}
+Cloning into '/home/david/xv6-riscv'...
+06aad25 2026-09-26 Add killzero test
+-rw-rw-r-- 1 david david 1174 Oct  5 14:15 LICENSE
+-rw-rw-r-- 1 david david 5744 Oct  5 14:15 Makefile
+-rw-rw-r-- 1 david david 2441 Oct  5 14:15 README
+drwxrwxr-x 2 david david 4096 Oct  5 14:15 kernel
+drwxrwxr-x 2 david david 4096 Oct  5 14:15 mkfs
+-rwxrwxr-x 1 david david 6147 Oct  5 14:15 test-xv6.py
+drwxrwxr-x 2 david david 4096 Oct  5 14:15 user
+riscv64-linux-gnu-gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+\end{lstlisting}
+
+\subsection*{First build (QEMU missing)}
+The compiler was already on the VM, but the emulator wasn't. The kernel and file system image still built, and only the final step failed:
+\begin{lstlisting}[language=bash]
+make qemu
+\end{lstlisting}
+\begin{lstlisting}
+/bin/sh: 1: qemu-system-riscv64: not found
+riscv64-linux-gnu-gcc -march=rv64gc -g -ffile-prefix-map=/home/david/xv6-riscv=. -c -o kernel/entry.o kernel/entry.S
+...
+mkfs/mkfs fs.img README user/_cat user/_echo user/_forktest user/_grep user/_init ...
+make: qemu-system-riscv64: No such file or directory
+make: *** [Makefile:183: qemu] Error 127
+\end{lstlisting}
+
+After installing QEMU:
+\begin{lstlisting}[language=bash]
+qemu-system-riscv64 --version | head -1
+\end{lstlisting}
+\begin{lstlisting}
+QEMU emulator version 10.2.1 (Debian 1:10.2.1+ds-1ubuntu3.2)
+\end{lstlisting}
+
+\section*{Part 1 -- Build and Boot}
+\begin{lstlisting}[language=bash]
+make qemu
+\end{lstlisting}
+\begin{lstlisting}
+qemu-system-riscv64 -machine virt -bios none -kernel kernel/kernel -m 128M -smp 3 -nographic -global virtio-mmio.force-legacy=false -drive file=fs.img,if=none,format=raw,id=x0 -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+
+xv6 kernel is booting
+
+hart 1 starting
+hart 2 starting
+init: starting sh
+$ 
+\end{lstlisting}
+QEMU emulates a RISC-V \texttt{virt} machine with 3 cores (\texttt{-smp 3}, hence harts 1 and 2 starting next to hart 0) and 128\,MB of RAM, and uses \texttt{fs.img} as its disk. Ctrl-A, X exits the emulator.
+
+\section*{Part 2 -- Using xv6}
+\begin{lstlisting}[language=bash]
+$ ls
+\end{lstlisting}
+\begin{lstlisting}
+.              1 1 1024
+..             1 1 1024
+README         2 2 2441
+cat            2 3 36728
+echo           2 4 35592
+sleep          2 5 35280
+pingpong       2 6 36672
+forktest       2 7 18136
+grep           2 8 44184
+init           2 9 35976
+kill           2 10 35512
+ln             2 11 35304
+ls             2 12 42880
+mkdir          2 13 35568
+rm             2 14 35552
+sh             2 15 58312
+stressfs       2 16 36416
+usertests      2 17 206800
+grind          2 18 51824
+wc             2 19 37728
+zombie         2 20 34848
+logstress      2 21 37560
+forphan        2 22 36352
+dorphan        2 23 35800
+sync           2 24 34944
+console        3 25 0
+\end{lstlisting}
+The columns are name, type (1 = directory, 2 = file, 3 = device), inode number and size in bytes.
+
+\begin{lstlisting}[language=bash]
+$ cat README
+$ echo hello xv6
+$ ls | grep c
+$ wc README
+\end{lstlisting}
+\begin{lstlisting}
+xv6 is a re-implementation of Dennis Ritchie's and Ken Thompson's Unix
+Version 6 (v6).  xv6 loosely follows the structure and style of v6,
+but is implemented for a modern RISC-V multiprocessor using ANSI C.
+...
+hello xv6
+cat            2 3 36728
+echo           2 4 35592
+wc             2 19 37728
+sync           2 24 34944
+console        3 25 0
+48 336 2441 README
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash]
+$ usertests -q
+\end{lstlisting}
+\begin{lstlisting}
+usertests starting
+test copyin: OK
+test copyout: OK
+...
+test kernmem: usertrap(): unexpected scause 0xd pid=5593
+...
+test lazy_sbrk: OK
+test partial_write: OK
+test unlinkcwd: OK
+ALL TESTS PASSED
+\end{lstlisting}
+
+\subsection*{Observations}
+\textbf{(1) Three programs xv6 ships with.} \texttt{ls}, \texttt{cat} and \texttt{echo} (also \texttt{grep}, \texttt{wc}, \texttt{sh}, \texttt{kill}, \texttt{mkdir}, \texttt{rm}, \texttt{usertests}, ...). \texttt{ls} listed 22 programs in the root directory, plus \texttt{README} and the \texttt{console} device.
+
+\textbf{(2) What a pipe needs.} For \texttt{ls | grep c} to work the OS must provide:
+\begin{itemize}
+    \item \textbf{process creation} (\texttt{fork} + \texttt{exec}): the shell starts \texttt{ls} and \texttt{grep} as two separate processes running at the same time;
+    \item \textbf{inter-process communication} (the \texttt{pipe} system call plus file descriptors and \texttt{dup}): a kernel buffer connects the stdout of \texttt{ls} to the stdin of \texttt{grep}.
+\end{itemize}
+
+\textbf{(3) xv6 shell vs.\ Linux shell.} The xv6 \texttt{sh} handles the same basics as bash (running programs, \texttt{|}, \texttt{<}/\texttt{>}, \texttt{;}, \texttt{\&}), but it is a 499-line program with no variables, job control, history, tab completion or scripting.
+
+\textbf{Interesting output:} \texttt{usertests -q} passed all tests, but along the way it printed lines like \\\texttt{usertrap(): unexpected scause 0xd}. Those come from tests such as \texttt{kernmem} and \texttt{stacktest} that deliberately make a bad memory access. They check that the kernel kills only the faulting process and keeps running.
+
+\section*{Part 3 -- Reading the Source}
+\begin{lstlisting}[language=bash]
+sed -n "1,30p" user/cat.c
+\end{lstlisting}
+\begin{lstlisting}[language=C]
+#include "kernel/types.h"
+#include "kernel/fcntl.h"
+#include "user/user.h"
+
+char buf[512];
+
+void
+cat(int fd)
+{
+  int n;
+
+  while ((n = read(fd, buf, sizeof(buf))) > 0) {
+    if (write(1, buf, n) != n) {
+      fprintf(2, "cat: write error\n");
+      exit(1);
+    }
+  }
+  if (n < 0) {
+    fprintf(2, "cat: read error\n");
+    exit(1);
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash]
+cat user/user.h          # system-call part
+\end{lstlisting}
+\begin{lstlisting}[language=C]
+// system calls
+int fork(void);
+int exit(int) __attribute__((noreturn));
+int wait(int *);
+int pipe(int *);
+int write(int, const void *, int);
+int read(int, void *, int);
+int close(int);
+int kill(int);
+int exec(const char *, char **);
+int open(const char *, int);
+...
+int getpid(void);
+char *sys_sbrk(int, int);
+int pause(int);
+int uptime(void);
+int sync(void);
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash]
+grep -n "sys_read\|sys_write" kernel/sysfile.c | head
+grep -n -B1 -A12 "^sys_read" kernel/sysfile.c
+\end{lstlisting}
+\begin{lstlisting}[language=C]
+69:sys_read(void)
+83:sys_write(void)
+68-uint64
+69:sys_read(void)
+70-{
+71-  struct file *f;
+72-  int n;
+73-  uint64 p;
+74-
+75-  argaddr(1, &p);
+76-  argint(2, &n);
+77-  if (argfd(0, 0, &f) < 0)
+78-    return -1;
+79-  return fileread(f, p, n);
+80-}
+\end{lstlisting}
+
+\begin{lstlisting}[language=bash]
+grep -n "sys_read\|sys_write\|sys_pause\|SYS_read\|SYS_write\|SYS_pause" kernel/syscall.c kernel/syscall.h
+\end{lstlisting}
+\begin{lstlisting}
+kernel/syscall.c:88:extern uint64 sys_read(void);
+kernel/syscall.c:96:extern uint64 sys_pause(void);
+kernel/syscall.c:99:extern uint64 sys_write(void);
+kernel/syscall.c:115:  [SYS_read]    = sys_read,
+kernel/syscall.c:123:  [SYS_pause]   = sys_pause,
+kernel/syscall.c:126:  [SYS_write]   = sys_write,
+kernel/syscall.h:6:#define SYS_read   5
+kernel/syscall.h:14:#define SYS_pause  13
+kernel/syscall.h:17:#define SYS_write  16
+\end{lstlisting}
+
+\subsection*{Observations}
+\textbf{(1) System calls in \texttt{user/cat.c}.}
+\begin{center}
+\begin{tabular}{ll}
+\hline
+\textbf{call} & \textbf{asks the kernel to...} \\
+\hline
+\texttt{open(path, O\_RDONLY)} & open the named file and return a file descriptor \\
+\texttt{read(fd, buf, n)} & copy up to \texttt{n} bytes from the file into the buffer \\
+\texttt{write(1, buf, n)} & copy \texttt{n} bytes from the buffer to fd 1 (stdout) \\
+\texttt{close(fd)} & release the file descriptor \\
+\texttt{exit(status)} & end the process and report a status to its parent \\
+\hline
+\end{tabular}
+\end{center}
+\texttt{fprintf} is not a system call. It's a library function from \texttt{user/printf.c} that ends up calling \texttt{write}.
+
+\textbf{(2) Where \texttt{sys\_read} is implemented.} In \textbf{\texttt{kernel/sysfile.c}, line 69} (the function body is lines 69--80; \texttt{sys\_write} is at line 83). The user-side stub generated from \texttt{user/usys.pl} puts the number \texttt{SYS\_read} = 5 in a register and executes \texttt{ecall}. The kernel's table in \texttt{kernel/syscall.c} (line 115) then maps number 5 to \texttt{sys\_read}, which fetches the arguments and calls \texttt{fileread}.
+
+\textbf{(3) \texttt{kernel/} vs.\ \texttt{user/}.} \texttt{kernel/} is the OS itself and runs in privileged (supervisor) mode with direct access to hardware and all memory. \texttt{user/} contains ordinary programs that run unprivileged and can only get things done by asking the kernel through system calls.
+
+\textbf{Interesting output:} the whole OS is small. \texttt{kernel/} has 44 source files with 6\,605 lines, and \texttt{user/} has 26 files with 5\,635 lines (almost two thirds of those, 3\,538, are the test suite \texttt{usertests.c}).
+
+\section*{Part 4 -- sleep}
+Current xv6 renamed the \texttt{sleep} system call to \textbf{\texttt{pause}}, because the kernel already has its own internal \texttt{sleep()} for waiting on events. \texttt{user/user.h} declares \texttt{int pause(int);}, and the kernel side is \texttt{sys\_pause} in \texttt{kernel/sysproc.c}. So my program calls \texttt{pause()} instead of the handout's \texttt{sleep()}.
+
+\textbf{Creating \texttt{user/sleep.c}:}
+\begin{lstlisting}[language=C]
+#include "kernel/types.h"
+#include "user/user.h"
+
+int
+main(int argc, char *argv[])
+{
+  if(argc != 2){
+    fprintf(2, "usage: sleep <ticks>\n");
+    exit(1);
+  }
+  pause(atoi(argv[1]));   // system call into the kernel (sleep() was renamed pause() in current xv6)
+  exit(0);
+}
+\end{lstlisting}
+
+\textbf{Adding \texttt{sleep} (and \texttt{pingpong}) to \texttt{UPROGS} in the \texttt{Makefile}:}
+\begin{lstlisting}[language=bash]
+sed -i 's|^\t\$U/_echo\\$|&\n\t$U/_sleep\\\n\t$U/_pingpong\\|' Makefile
+grep -n "_echo\|_sleep\|_pingpong" Makefile | cat -A
+\end{lstlisting}
+\begin{lstlisting}
+134:^I$U/_echo\$
+135:^I$U/_sleep\$
+136:^I$U/_pingpong\$
+\end{lstlisting}
+(\texttt{cat -A} shows the tab as \texttt{\^{}I} and the line end as \texttt{\$}, confirming the tab indentation and the trailing backslash.)
+
+\textbf{Rebuilding:}
+\begin{lstlisting}[language=bash]
+make kernel/kernel fs.img
+\end{lstlisting}
+\begin{lstlisting}
+riscv64-linux-gnu-gcc ... -c -o user/sleep.o user/sleep.c
+riscv64-linux-gnu-ld -z max-page-size=4096 -T user/user.ld -o user/_sleep user/sleep.o user/ulib.o user/usys.o user/printf.o user/umalloc.o
+...
+mkfs/mkfs fs.img README user/_cat user/_echo user/_sleep user/_pingpong user/_forktest ...
+\end{lstlisting}
+
+\textbf{Running \texttt{sleep} in QEMU} (each output line is timestamped on the host):
+\begin{lstlisting}[language=bash]
+$ sleep
+$ sleep abc
+$ echo before
+$ sleep 10
+$ echo after
+$ echo start; sleep 50; echo done
+\end{lstlisting}
+\begin{lstlisting}
+[14:38:22.267] usage: sleep <ticks>
+[14:38:26.186] before
+[14:38:27.102] after
+[14:39:07.160] start
+[14:39:12.251] done
+\end{lstlisting}
+Without an argument the program prints its usage message and exits. \texttt{sleep 10} paused about 0.92\,s and \texttt{sleep 50} about 5.09\,s, so one xv6 timer tick is about 100\,ms. \texttt{sleep abc} returns immediately, because \texttt{atoi("abc")} is 0.
+
+\subsection*{Optional -- pingpong}
+\begin{lstlisting}[language=C]
+#include "kernel/types.h"
+#include "user/user.h"
+
+int
+main(int argc, char *argv[])
+{
+  int p2c[2], c2p[2];   // parent->child and child->parent pipes
+  char b = 'x';
+
+  if(pipe(p2c) < 0 || pipe(c2p) < 0){
+    fprintf(2, "pingpong: pipe failed\n");
+    exit(1);
+  }
+
+  int pid = fork();
+  if(pid < 0){
+    fprintf(2, "pingpong: fork failed\n");
+    exit(1);
+  }
+
+  if(pid == 0){
+    close(p2c[1]);
+    close(c2p[0]);
+    if(read(p2c[0], &b, 1) != 1){
+      fprintf(2, "pingpong: child read failed\n");
+      exit(1);
+    }
+    printf("%d: received ping\n", getpid());
+    if(write(c2p[1], &b, 1) != 1){
+      fprintf(2, "pingpong: child write failed\n");
+      exit(1);
+    }
+    close(p2c[0]);
+    close(c2p[1]);
+    exit(0);
+  }
+
+  close(p2c[0]);
+  close(c2p[1]);
+  if(write(p2c[1], &b, 1) != 1){
+    fprintf(2, "pingpong: parent write failed\n");
+    exit(1);
+  }
+  if(read(c2p[0], &b, 1) != 1){
+    fprintf(2, "pingpong: parent read failed\n");
+    exit(1);
+  }
+  printf("%d: received pong\n", getpid());
+  close(p2c[1]);
+  close(c2p[0]);
+  wait(0);
+  exit(0);
+}
+\end{lstlisting}
+\begin{lstlisting}
+$ pingpong
+10: received ping
+9: received pong
+\end{lstlisting}
+The child (PID 10) blocks in \texttt{read} until the parent (PID 9) writes the byte, so \say{ping} is always printed before \say{pong}.
+
+\break
+
+\section*{Conclusion}
+In this laboratory work I built xv6 from source with the RISC-V cross-compiler and booted it in QEMU on an emulated 3-core RISC-V machine. Inside it I used the familiar Unix tools (\texttt{ls}, \texttt{cat}, \texttt{echo}, \texttt{wc}) and a pipe, and the kernel test suite passed. Reading the source showed the split at the heart of an OS. \texttt{user/cat.c} only calls \texttt{read} and \texttt{write}; a stub turns each call into a numbered \texttt{ecall}, and \texttt{kernel/syscall.c} dispatches it to \texttt{sys\_read} in \texttt{kernel/sysfile.c}. Finally I wrote my own user program, \texttt{sleep}, which uses the system call now named \texttt{pause}, and the optional \texttt{pingpong}, which uses \texttt{fork} and two pipes. Both run correctly in the kernel I compiled myself.
+
+\end{document}

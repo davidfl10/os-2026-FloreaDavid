@@ -1,0 +1,30 @@
+$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           3.3Gi       1.8Gi       192Mi        39Mi       1.5Gi       1.5Gi
+Swap:          3.3Gi       978Mi       2.3Gi
+
+$ cat /proc/meminfo | head -6
+MemTotal:        3480328 kB
+MemFree:          197556 kB
+MemAvailable:    1576952 kB
+Buffers:            9060 kB
+Cached:          1457600 kB
+SwapCached:       104292 kB
+
+$ sleep 300 & PID=$!
+
+$ grep VmRSS /proc/$PID/status
+VmRSS:	    7740 kB
+
+$ grep -E "VmSize|RssAnon|RssFile|RssShmem" /proc/$PID/status
+VmSize:	   16116 kB
+RssAnon:	    1224 kB
+RssFile:	    6516 kB
+RssShmem:	       0 kB
+
+$ kill $PID
+
+$ swapon --show
+NAME      TYPE SIZE   USED PRIO
+/swap.img file 3.3G 978.4M   -1
+

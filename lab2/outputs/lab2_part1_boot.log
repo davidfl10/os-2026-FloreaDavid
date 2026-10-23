@@ -1,0 +1,16 @@
+$ which qemu-system-riscv64 && qemu-system-riscv64 --version | head -1
+/usr/bin/qemu-system-riscv64
+QEMU emulator version 10.2.1 (Debian 1:10.2.1+ds-1ubuntu3.2)
+
+$ (sleep 5; echo "echo booted ok"; sleep 2) | timeout 20 make qemu
+qemu-system-riscv64 -machine virt -bios none -kernel kernel/kernel -m 128M -smp 3 -nographic -global virtio-mmio.force-legacy=false -drive file=fs.img,if=none,format=raw,id=x0 -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+
+xv6 kernel is booting
+
+hart 1 starting
+hart 2 starting
+echo booted ok
+init: starting sh
+$ booted ok
+$ qemu-system-riscv64: terminating on signal 15 from pid 4016 (timeout)
+[timeout exit: 124]

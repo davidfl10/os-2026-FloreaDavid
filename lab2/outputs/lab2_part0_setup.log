@@ -1,0 +1,24 @@
+$ cd ~/xv6-riscv 2>/dev/null || git clone https://github.com/mit-pdos/xv6-riscv ~/xv6-riscv
+Cloning into '/home/david/xv6-riscv'...
+
+$ cd ~/xv6-riscv
+
+$ git log -1 --format="%h %ad %s" --date=short
+06aad25 2026-09-26 Add killzero test
+
+$ ls -l
+total 36
+-rw-rw-r-- 1 david david 1174 Oct  5 14:15 LICENSE
+-rw-rw-r-- 1 david david 5744 Oct  5 14:15 Makefile
+-rw-rw-r-- 1 david david 2441 Oct  5 14:15 README
+drwxrwxr-x 2 david david 4096 Oct  5 14:15 kernel
+drwxrwxr-x 2 david david 4096 Oct  5 14:15 mkfs
+-rwxrwxr-x 1 david david 6147 Oct  5 14:15 test-xv6.py
+drwxrwxr-x 2 david david 4096 Oct  5 14:15 user
+
+$ riscv64-linux-gnu-gcc --version | head -1
+riscv64-linux-gnu-gcc (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+
+$ which qemu-system-riscv64 || echo "qemu-system-riscv64: not installed"
+qemu-system-riscv64: not installed
+

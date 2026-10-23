@@ -1,0 +1,85 @@
+$ htop --version
+htop 3.4.1
+
+# htop is interactive: started inside a detached GNU screen (80x24), screen dumped after 3 s
+$ screen -dmS htopcap bash -c "TERM=xterm htop"; sleep 3; screen -S htopcap -X hardcopy /tmp/htop.txt; screen -S htopcap -X quit; sed "s/[[:space:]]*$//" /tmp/htop.txt | tr -d "\302\240" | iconv -c -t ascii
+
+    0[||||                       10.4%] Tasks: 148, 642 thr, 89 kthr; 1 runnin
+    1[|||                         6.8%] Load average: 0.89 1.44 1.41
+  Mem[|||||||||||||||||||||1.69G/3.32G] Uptime: 01:29:53
+  Swp[||||||||||            877M/3.29G]
+
+  [Main] [I/O]
+    PID USER       PRI  NI  VIRT   RES   SHR S  CPU%MEM%   TIME+  Command
+   9517 david       20   0 5459M  294M 88444 S   6.1  8.7  0:19.78 claude
+   3602 david       20   0 1822M 98.7M 72344 S   4.5  2.9  0:14.67 ptyxis --new-
+   3662 david       20   0 1821M 98.6M     0 S   3.8  2.9  0:06.75 ptyxis --new-
+   3663 david       20   0 1821M 98.6M     0 S   3.8  2.9  0:07.93 ptyxis --new-
+   2594 david       20   0 3954M  242M  101M S   3.0  7.1  2:10.10 /usr/bin/gnom
+   2630 david       20   0 3954M  242M     0 S   2.3  7.1  0:45.40 /usr/bin/gnom
+   2631 david       20   0 3954M  242M     0 S   2.3  7.1  0:50.12 /usr/bin/gnom
+   3661 david       20   0 1821M 98.6M     0 S   2.3  2.9  0:06.42 ptyxis --new-
+  11492 david       20   0 12004  5828  3960 R   1.5  0.2  0:00.12 htop
+    403 systemd-oo  20   0 16808  6060  5560 S   0.8  0.2  0:01.05 /usr/lib/syst
+   9524 david       20   0 5459M  295M     0 S   0.8  8.7  0:02.22 claude
+  10520 david       20   0 7371M  542M  110M S   0.8 16.0  0:21.73 /snap/firefox
+      1 root        20   0 25920 13600  9576 S   0.0  0.4  0:03.53 /usr/lib/syst
+    367 root        19  -1 50960 14832 14108 S   0.0  0.4  0:06.83 /usr/lib/syst
+    404 systemd-re  20   0 22944  7968  7208 S   0.0  0.2  0:05.26 /usr/lib/syst
+F1Help  F2Setup F3SearchF4FilterF5Tree  F6SortByF7Nice -F8Nice +F9Kill  F10Quit
+
+$ strace -c ls
+demo
+% time     seconds  usecs/call     calls    errors syscall
+------ ----------- ----------- --------- --------- ------------------
+ 30.18    0.000497         497         1           execve
+ 26.29    0.000433          16        27           mmap
+ 18.52    0.000305         305         1           write
+  5.28    0.000087           7        11         1 openat
+  4.19    0.000069           7         9           fstat
+  3.95    0.000065           6        10           close
+  3.76    0.000062           4        14           read
+  2.73    0.000045           9         5           brk
+  2.00    0.000033           4         8           mprotect
+  1.15    0.000019           9         2           pread64
+  1.03    0.000017           8         2           munmap
+  0.30    0.000005           2         2         2 access
+  0.18    0.000003           1         3           sigaltstack
+  0.12    0.000002           2         1           getrandom
+  0.06    0.000001           1         1           arch_prctl
+  0.06    0.000001           1         1           set_tid_address
+  0.06    0.000001           1         1           set_robust_list
+  0.06    0.000001           0         2           prlimit64
+  0.06    0.000001           1         1           rseq
+  0.00    0.000000           0         1           poll
+  0.00    0.000000           0         2           lseek
+  0.00    0.000000           0         9           rt_sigaction
+  0.00    0.000000           0         7         7 ioctl
+  0.00    0.000000           0         3           fcntl
+  0.00    0.000000           0         2         2 statfs
+  0.00    0.000000           0         1           prctl
+  0.00    0.000000           0         1           gettid
+  0.00    0.000000           0         1           sched_getaffinity
+  0.00    0.000000           0         2           getdents64
+  0.00    0.000000           0         1           newfstatat
+  0.00    0.000000           0         6           statx
+------ ----------- ----------- --------- --------- ------------------
+100.00    0.001647          11       138        12 total
+
+$ strace ls 2>&1 | tail -15
+ioctl(1, TCGETS2, 0x7ffe1ede9590)       = -1 ENOTTY (Inappropriate ioctl for device)
+statx(AT_FDCWD, ".", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFDIR|0775, stx_size=4096, ...}) = 0
+statx(AT_FDCWD, ".", AT_STATX_SYNC_AS_STAT, STATX_ALL, {stx_mask=STATX_ALL|STATX_MNT_ID, stx_attributes=0, stx_mode=S_IFDIR|0775, stx_size=4096, ...}) = 0
+openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+fstat(3, {st_mode=S_IFDIR|0775, st_size=4096, ...}) = 0
+newfstatat(AT_FDCWD, ".", {st_mode=S_IFDIR|0775, st_size=4096, ...}, 0) = 0
+getdents64(3, 0x5c47acf84f80 /* 3 entries */, 32768) = 72
+getdents64(3, 0x5c47acf84f80 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+write(1, "demo\n", 5demo
+)                   = 5
+sigaltstack({ss_sp=NULL, ss_flags=SS_DISABLE, ss_size=8192}, NULL) = 0
+munmap(0x7d46071ae000, 12288)           = 0
+exit_group(0)                           = ?
++++ exited with 0 +++
+

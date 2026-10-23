@@ -1,0 +1,49 @@
+$ cat user/sleep.c
+#include "kernel/types.h"
+#include "user/user.h"
+
+int
+main(int argc, char *argv[])
+{
+  if(argc != 2){
+    fprintf(2, "usage: sleep <ticks>\n");
+    exit(1);
+  }
+  pause(atoi(argv[1]));   // system call into the kernel (sleep() was renamed pause() in current xv6)
+  exit(0);
+}
+
+$ (sleep 4; echo "sleep"; sleep 2; echo "sleep abc"; sleep 2; echo "echo before"; echo "sleep 10"; echo "echo after"; sleep 3; echo "sleep 50"; sleep 8; echo pingpong; sleep 3) | timeout 40 make qemu | while IFS= read -r l; do printf "[%s] %s\n" "$(date +%T.%N | cut -c1-12)" "$l"; done
+[14:38:13.510] qemu-system-riscv64 -machine virt -bios none -kernel kernel/kernel -m 128M -smp 3 -nographic -global virtio-mmio.force-legacy=false -drive file=fs.img,if=none,format=raw,id=x0 -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+[14:38:13.574] 
+[14:38:13.910] xv6 kernel is booting
+[14:38:14.007] 
+[14:38:22.147] hart 2 starting
+[14:38:22.184] sleep
+[14:38:22.204] hart 1 starting
+[14:38:22.227] init: starting sh
+[14:38:22.267] $ usage: sleep <ticks>
+[14:38:24.136] $ sleep abc
+[14:38:26.157] $ echo before
+[14:38:26.172] sleep 10
+[14:38:26.179] echo after
+[14:38:26.186] before
+[14:38:27.102] $ $ after
+[14:38:29.155] $ sleep 50
+[14:38:37.166] $ pingpong
+[14:38:37.189] 10: received ping
+[14:38:37.203] 9: received pong
+[14:38:53.475] $ qemu-system-riscv64: terminating on signal 15 from pid 4315 (timeout)
+
+$ (sleep 4; echo "echo start; sleep 50; echo done"; sleep 8) | timeout 25 make qemu | (timestamp each line)
+[14:39:03.223] qemu-system-riscv64 -machine virt -bios none -kernel kernel/kernel -m 128M -smp 3 -nographic -global virtio-mmio.force-legacy=false -drive file=fs.img,if=none,format=raw,id=x0 -device virtio-blk-device,drive=x0,bus=virtio-mmio-bus.0
+[14:39:03.276] 
+[14:39:03.302] xv6 kernel is booting
+[14:39:03.317] 
+[14:39:03.787] hart 1 starting
+[14:39:03.801] hart 2 starting
+[14:39:03.839] init: starting sh
+[14:39:07.147] $ echo start; sleep 50; echo done
+[14:39:07.160] start
+[14:39:12.251] done
+[14:39:29.044] $ qemu-system-riscv64: terminating on signal 15 from pid 4445 (make)

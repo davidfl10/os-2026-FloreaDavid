@@ -1,0 +1,157 @@
+$ ps aux | head
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root           1  0.0  0.3  25920 13600 ?        Ss   12:44   0:03 /usr/lib/systemd/systemd --switched-root --system --deserialize=52 splash
+root           2  0.0  0.0      0     0 ?        S    12:44   0:00 [kthreadd]
+root           3  0.0  0.0      0     0 ?        S    12:44   0:00 [pool_workqueue_release]
+root           4  0.0  0.0      0     0 ?        I<   12:44   0:00 [kworker/R-rcu_gp]
+root           5  0.0  0.0      0     0 ?        I<   12:44   0:00 [kworker/R-sync_wq]
+root           6  0.0  0.0      0     0 ?        I<   12:44   0:00 [kworker/R-kvfree_rcu_reclaim]
+root           7  0.0  0.0      0     0 ?        I<   12:44   0:00 [kworker/R-slub_flushwq]
+root           8  0.0  0.0      0     0 ?        I<   12:44   0:00 [kworker/R-netns]
+root          10  0.0  0.0      0     0 ?        I<   12:44   0:04 [kworker/0:0H-kblockd]
+
+$ ps aux | wc -l
+241
+
+$ top -b -n 1 | head -30
+top - 14:13:32 up  1:28,  1 user,  load average: 1.30, 1.60, 1.45
+Tasks: 240 total,   1 running, 238 sleeping,   0 stopped,   1 zombie
+%Cpu(s):  5.9 us,  5.9 sy,  0.0 ni, 82.4 id,  0.0 wa,  0.0 hi,  5.9 si,  0.0 st 
+MiB Mem :   3398.8 total,    185.6 free,   1872.1 used,   1498.8 buff/cache     
+MiB Swap:   3367.0 total,   2388.5 free,    978.5 used.   1526.7 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+   3602 david     20   0 1865644 101020  72224 S  18.2   2.9   0:28.22 ptyxis
+   2594 david     20   0 4053412 247252 103592 S   9.1   7.1   4:02.74 gnome-s+
+  11337 david     20   0   13380   5848   3792 R   9.1   0.2   0:00.01 top
+      1 root      20   0   25920  13600   9576 S   0.0   0.4   0:03.51 systemd
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.02 kthreadd
+      3 root      20   0       0      0      0 S   0.0   0.0   0:00.00 pool_wo+
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+      5 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+      7 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+      8 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+     10 root       0 -20       0      0      0 I   0.0   0.0   0:04.44 kworker+
+     12 root      20   0       0      0      0 I   0.0   0.0   0:00.00 kworker+
+     13 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker+
+     14 root      20   0       0      0      0 S   0.0   0.0   0:01.56 ksoftir+
+     15 root      20   0       0      0      0 I   0.0   0.0   0:01.74 rcu_pre+
+     16 root      20   0       0      0      0 S   0.0   0.0   0:00.00 rcu_exp+
+     17 root      20   0       0      0      0 S   0.0   0.0   0:00.08 rcu_exp+
+     18 root      rt   0       0      0      0 S   0.0   0.0   0:00.05 migrati+
+     19 root      20   0       0      0      0 S   0.0   0.0   0:00.00 kprobe-+
+     20 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 idle_in+
+     21 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/0
+     22 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/1
+
+$ sleep 300 &
+[1] 11339
+
+$ jobs -l
+[1]+ 11339 Running                    sleep 300 &
+
+$ ps -ef | grep sleep
+david      11339   11331  0 14:13 ?        00:00:00 sleep 300
+david      11341   11331  0 14:13 ?        00:00:00 grep sleep
+
+$ kill 11339
+
+$ sleep 0.2; jobs -l
+[1]+ 11339 Terminated                 sleep 300
+
+$ sleep 300 &
+$ PID=$!
+
+$ echo $PID
+11344
+
+$ ls /proc/$PID/
+arch_status
+attr
+autogroup
+auxv
+cgroup
+clear_refs
+cmdline
+comm
+coredump_filter
+cpu_resctrl_groups
+cwd
+environ
+exe
+fd
+fdinfo
+gid_map
+io
+ksm_merging_pages
+ksm_stat
+latency
+limits
+loginuid
+map_files
+maps
+mem
+mountinfo
+mounts
+mountstats
+net
+ns
+numa_maps
+oom_adj
+oom_score
+oom_score_adj
+pagemap
+patch_state
+personality
+projid_map
+root
+sched
+schedstat
+sessionid
+setgroups
+smaps
+smaps_rollup
+stack
+stat
+statm
+status
+syscall
+task
+timens_offsets
+timers
+timerslack_ns
+uid_map
+wchan
+
+$ cat /proc/$PID/status | head -20
+Name:	sleep
+Umask:	0002
+State:	S (sleeping)
+Tgid:	11344
+Ngid:	0
+Pid:	11344
+PPid:	11331
+TracerPid:	0
+Uid:	1000	1000	1000	1000
+Gid:	1000	1000	1000	1000
+FDSize:	256
+Groups:	4 24 27 30 46 100 111 114 973 1000 
+NStgid:	11344
+NSpid:	11344
+NSpgid:	11331
+NSsid:	11330
+Kthread:	0
+VmPeak:	   16116 kB
+VmSize:	   16116 kB
+VmLck:	       0 kB
+
+$ kill $PID
+
+$ ps -p 1 -o pid,user,comm,args
+    PID USER     COMMAND         COMMAND
+      1 root     systemd         /usr/lib/systemd/systemd --switched-root --system --deserialize=52 splash
+
+$ ls -l /sbin/init
+lrwxrwxrwx 1 root root 22 Jul 27 23:44 /sbin/init -> ../lib/systemd/systemd
+
