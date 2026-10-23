@@ -1,0 +1,59 @@
+david@david-VirtualBox:~/xv6-riscv$ make qemu
+qemu-system-riscv64 -machine virt -bios none -kernel kernel/kernel -m 128M -smp 3 -nographic -global
+ virtio-mmio.force-legacy=false -drive file=fs.img,if=none,format=raw,id=x0 -device virtio-blk-devic
+e,drive=x0,bus=virtio-mmio-bus.0
+
+xv6 kernel is booting
+
+hart 2 starting
+hart 1 starting
+init: starting sh
+$ echo hello > f ; cat < f
+hello
+$ ls | grep READ
+README         2 2 2441
+$ (echo a; echo b) | wc
+2 2 4
+$ echo one ; echo two
+one
+two
+$ echo bg &
+bg$
+ls *
+ls: cannot open *
+$ echo $HOME
+$HOME
+$ echo "a b"
+"a b"
+$ mkdir d ; cd d ; ls ..
+exec cd failed
+.              1 1 1024
+..             1 1 1024
+README         2 2 2441
+cat            2 3 36728
+echo           2 4 35592
+sleep          2 5 35280
+pingpong       2 6 36672
+args           2 7 35272
+forktest       2 8 18136
+grep           2 9 44184
+init           2 10 35976
+kill           2 11 35512
+ln             2 12 35304
+ls             2 13 42880
+mkdir          2 14 35568
+rm             2 15 35552
+sh             2 16 58312
+stressfs       2 17 36416
+usertests      2 18 206800
+grind          2 19 51824
+wc             2 20 37728
+zombie         2 21 34848
+logstress      2 22 37560
+forphan        2 23 36352
+dorphan        2 24 35800
+sync           2 25 34944
+console        3 26 0
+f              2 27 6
+d              1 28 32
+$

@@ -1,0 +1,46 @@
+david@david-VirtualBox:~/xv6-riscv$ make qemu
+qemu-system-riscv64 -machine virt -bios none -kernel kernel/kernel -m 128M -smp 3 -nographic -global
+ virtio-mmio.force-legacy=false -drive file=fs.img,if=none,format=raw,id=x0 -device virtio-blk-devic
+e,drive=x0,bus=virtio-mmio-bus.0
+
+xv6 kernel is booting
+
+hart 2 starting
+hart 1 starting
+init: starting sh
+$ run
+parent: my pid is 3
+child: my pid is 4
+.              1 1 1024
+..             1 1 1024
+README         2 2 2441
+cat            2 3 36728
+echo           2 4 35592
+sleep          2 5 35280
+pingpong       2 6 36672
+args           2 7 35272
+mystat         2 8 36232
+find           2 9 43688
+run            2 10 35888
+primes         2 11 36752
+forktest       2 12 18136
+grep           2 13 44184
+init           2 14 35976
+kill           2 15 35512
+ln             2 16 35304
+ls             2 17 42880
+mkdir          2 18 35568
+rm             2 19 35552
+sh             2 20 58312
+stressfs       2 21 36416
+usertests      2 22 206800
+grind          2 23 51824
+wc             2 24 37728
+zombie         2 25 34848
+logstress      2 26 37560
+forphan        2 27 36352
+dorphan        2 28 35800
+sync           2 29 34944
+console        3 30 0
+parent: child 4 ended with status 0
+$

@@ -1,0 +1,6 @@
+david@david-VirtualBox:~/os-lab3$ cut -d' ' -f5 access.log | sort -u | nl
+     1  /page0
+     2  /page1
+     3  /page2
+     4  /page3
+david@david-VirtualBox:~/os-lab3$

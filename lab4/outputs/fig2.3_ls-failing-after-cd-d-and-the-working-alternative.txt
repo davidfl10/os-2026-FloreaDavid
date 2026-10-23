@@ -1,0 +1,26 @@
+david@david-VirtualBox:~/xv6-riscv$ make qemu
+qemu-system-riscv64 -machine virt -bios none -kernel kernel/kernel -m 128M -smp 3 -nographic -global
+ virtio-mmio.force-legacy=false -drive file=fs.img,if=none,format=raw,id=x0 -device virtio-blk-devic
+e,drive=x0,bus=virtio-mmio-bus.0
+
+xv6 kernel is booting
+
+hart 2 starting
+hart 1 starting
+init: starting sh
+$ cd d
+$ ls
+exec ls failed
+$ ls ..
+exec ls failed
+$ /ls
+.              1 28 32
+..             1 1 1024
+$ /ls .. | /grep README
+README         2 2 2441
+$ ../echo hello from d
+hello from d
+$ cd /
+$ ls | grep README
+README         2 2 2441
+$

@@ -1,0 +1,11 @@
+david@david-VirtualBox:~/os-lab5$ echo x > one.txt ; ls -l one.txt ; du -h one.txt
+-rw-rw-r-- 1 david david 2 Oct 12 16:01 one.txt
+4.0K    one.txt
+david@david-VirtualBox:~/os-lab5$ truncate -s 1G big.img ; ls -lh big.img ; du -h big.img
+-rw-rw-r-- 1 david david 1.0G Oct 12 16:01 big.img
+0       big.img
+david@david-VirtualBox:~/os-lab5$ stat -c "%n: size %s bytes, %b blocks of %B bytes" one.txt big.img
+one.txt: size 2 bytes, 8 blocks of 512 bytes
+big.img: size 1073741824 bytes, 0 blocks of 512 bytes
+david@david-VirtualBox:~/os-lab5$ rm big.img
+david@david-VirtualBox:~/os-lab5$

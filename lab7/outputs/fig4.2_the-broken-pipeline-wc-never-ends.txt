@@ -1,0 +1,25 @@
+david@david-VirtualBox:~/os-lab7$ sed -i 's|^    close(p\[1\]);$|    /* close(p[1]); */|' pipeline.c
+david@david-VirtualBox:~/os-lab7$ grep -n "p\[1\]" pipeline.c
+12:    if (fork() == 0) {                           /* ls: its 1 becomes p[1] */
+14:        dup(p[1]);                               /* smallest free number: 1 */
+16:        close(p[1]);
+26:        close(p[1]);
+33:    /* close(p[1]); */
+david@david-VirtualBox:~/os-lab7$ gcc -Wall -Wextra -o pipeline pipeline.c
+david@david-VirtualBox:~/os-lab7$ ./pipeline
+^C
+david@david-VirtualBox:~/os-lab7$ ./pipeline &
+[1] 35354
+david@david-VirtualBox:~/os-lab7$ sleep 1; ps -o pid,ppid,stat,cmd
+    PID    PPID STAT CMD
+  35338   35331 Ss   /usr/bin/bash --norc --noprofile -i
+  35354   35338 S    ./pipeline
+  35356   35354 S    wc -l
+  35358   35338 R+   ps -o pid,ppid,stat,cmd
+david@david-VirtualBox:~/os-lab7$ kill -- -$!
+david@david-VirtualBox:~/os-lab7$ sleep 1; jobs ; ps -o pid,ppid,stat,cmd
+[1]+  Terminated                 ./pipeline
+    PID    PPID STAT CMD
+  35338   35331 Ss   /usr/bin/bash --norc --noprofile -i
+  35360   35338 R+   ps -o pid,ppid,stat,cmd
+david@david-VirtualBox:~/os-lab7$

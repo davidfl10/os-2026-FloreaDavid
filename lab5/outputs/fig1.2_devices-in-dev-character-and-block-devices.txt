@@ -1,0 +1,17 @@
+david@david-VirtualBox:~/os-lab5$ ls -l /dev | head
+total 0
+crw-r--r--  1 root  root     10, 235 Oct  5 14:34 autofs
+drwxr-xr-x  2 root  root        460 Oct 12 14:19 block
+drwxr-xr-x  2 root  root         80 Oct  5 14:34 bsg
+crw-------  1 root  root     10, 234 Oct  5 14:34 btrfs-control
+drwxr-xr-x  3 root  root         60 Oct  5 14:34 bus
+lrwxrwxrwx+ 1 root  root          3 Oct  5 14:34 cdrom -> sr0
+drwxr-xr-x  2 root  root       3640 Oct 12 14:19 char
+crw-------  1 root  tty       5,   1 Oct  5 14:34 console
+lrwxrwxrwx  1 root  root         11 Oct  5 14:34 core -> /proc/kcore
+david@david-VirtualBox:~/os-lab5$ ls -l /dev | grep "^b" | head -4
+brw-rw----  1 root  disk      7,   0 Oct  5 14:34 loop0
+brw-rw----  1 root  disk      7,   1 Oct  5 14:34 loop1
+brw-rw----  1 root  disk      7,  10 Oct  5 14:34 loop10
+brw-rw----  1 root  disk      7,  11 Oct  5 14:34 loop11
+david@david-VirtualBox:~/os-lab5$

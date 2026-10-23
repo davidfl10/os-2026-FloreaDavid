@@ -1,0 +1,37 @@
+david@david-VirtualBox:~$ ls --help | head
+List directory contents.
+Ignore files and directories starting with a '.' by default
+
+Usage: ls [OPTION]... [FILE]...
+
+Arguments:
+  [paths]...
+
+Options:
+      --help
+ls: Broken pipe (os error 32)
+david@david-VirtualBox:~$ man -k "list directory"
+dir (1)              - List directory contents. Ignore files and directories starting with a '....
+gnudir (1)           - list directory contents
+gnuls (1)            - list directory contents
+gnuvdir (1)          - list directory contents
+ls (1)               - List directory contents. Ignore files and directories starting with a '....
+ntfsls (8)           - list directory contents on an NTFS filesystem
+rust-dir (1)         - List directory contents. Ignore files and directories starting with a '....
+rust-ls (1)          - List directory contents. Ignore files and directories starting with a '....
+rust-vdir (1)        - List directory contents. Ignore files and directories starting with a '....
+vdir (1)             - List directory contents. Ignore files and directories starting with a '....
+david@david-VirtualBox:~$ help cd | head -12
+cd: cd [-L|[-P [-e]]] [-@] [dir]
+    Change the shell working directory.
+
+    Change the current directory to DIR.  The default DIR is the value of the
+    HOME shell variable. If DIR is "-", it is converted to $OLDPWD.
+
+    The variable CDPATH defines the search path for the directory containing
+    DIR.  Alternative directory names in CDPATH are separated by a colon (:).
+    A null directory name is the same as the current directory.  If DIR begins
+    with a slash (/), then CDPATH is not used.
+
+    If the directory is not found, and the shell option `cdable_vars' is set,
+david@david-VirtualBox:~$

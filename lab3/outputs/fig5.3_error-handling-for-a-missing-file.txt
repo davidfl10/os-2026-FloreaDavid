@@ -1,0 +1,6 @@
+david@david-VirtualBox:~/os-lab3$ ./report.sh nope.log ; echo "exit code: $?"
+no such file: nope.log
+exit code: 1
+david@david-VirtualBox:~/os-lab3$ ./report.sh nope.log 2> /dev/null ; echo "exit code: $?"
+exit code: 1
+david@david-VirtualBox:~/os-lab3$

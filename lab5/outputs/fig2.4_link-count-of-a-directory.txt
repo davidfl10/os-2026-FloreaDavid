@@ -1,0 +1,11 @@
+david@david-VirtualBox:~/os-lab5$ mkdir d ; ls -ld d
+drwxrwxr-x 2 david david 4096 Oct 12 16:01 d
+david@david-VirtualBox:~/os-lab5$ mkdir d/x d/y ; ls -ld d
+drwxrwxr-x 4 david david 4096 Oct 12 16:01 d
+david@david-VirtualBox:~/os-lab5$ ls -lai d
+total 16
+527477 drwxrwxr-x 4 david david 4096 Oct 12 16:01 .
+527789 drwxrwxr-x 3 david david 4096 Oct 12 16:01 ..
+527796 drwxrwxr-x 2 david david 4096 Oct 12 16:01 x
+527817 drwxrwxr-x 2 david david 4096 Oct 12 16:01 y
+david@david-VirtualBox:~/os-lab5$

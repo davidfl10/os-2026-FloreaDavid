@@ -1,0 +1,23 @@
+david@david-VirtualBox:~/os-lab3$ bash oneliners.sh
+100
+     1  /page0
+     2  /page1
+     3  /page2
+     4  /page3
+    125 /page0
+    125 /page1
+    125 /page2
+    125 /page3
+     15 user5
+     15 user3
+user3: 72 requests, 15 failed
+10:10 user0
+10:15 user5
+10:20 user3
+     40 /usr/sbin/nologin
+      5 /bin/false
+      2 /bin/bash
+      1 /bin/sync
+ls: 241   ls -l: 242
+total 1176
+david@david-VirtualBox:~/os-lab3$

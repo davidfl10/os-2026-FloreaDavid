@@ -1,0 +1,8 @@
+david@david-VirtualBox:~/os-lab3$ sleep 100 &
+[1] 21027
+david@david-VirtualBox:~/os-lab3$ jobs ; kill %1 ; jobs
+[1]+  Running                    sleep 100 &
+[1]+  Running                    sleep 100 &
+david@david-VirtualBox:~/os-lab3$ jobs
+[1]+  Terminated                 sleep 100
+david@david-VirtualBox:~/os-lab3$

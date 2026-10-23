@@ -1,0 +1,10 @@
+david@david-VirtualBox:~$ ls /usr/share/
+Display all 261 possibilities? (y or n)
+david@david-VirtualBox:~$ ls /usr/share/^C
+david@david-VirtualBox:~$ ls /usr/l
+lib/     lib64/   libexec/ local/
+david@david-VirtualBox:~$ ls /usr/l^C
+david@david-VirtualBox:~$ cd /etc/
+david@david-VirtualBox:/etc$ pwd
+/etc
+david@david-VirtualBox:/etc$

@@ -1,0 +1,16 @@
+david@david-VirtualBox:~/os-lab3$ grep -E '^[^ ]+ 10:[0-5]0 [^ ]+ FAIL' access.log | head -12
+2026-10-05 10:10 user3 FAIL /page2
+2026-10-05 10:20 user6 FAIL /page0
+2026-10-05 10:30 user2 FAIL /page2
+2026-10-05 10:40 user5 FAIL /page0
+2026-10-05 10:50 user1 FAIL /page2
+2026-10-05 10:00 user4 FAIL /page0
+2026-10-05 10:10 user0 FAIL /page2
+2026-10-05 10:20 user3 FAIL /page0
+2026-10-05 10:30 user6 FAIL /page2
+2026-10-05 10:40 user2 FAIL /page0
+2026-10-05 10:50 user5 FAIL /page2
+2026-10-05 10:00 user1 FAIL /page0
+david@david-VirtualBox:~/os-lab3$ grep -cE '^[^ ]+ 10:[0-5]0 [^ ]+ FAIL' access.log
+50
+david@david-VirtualBox:~/os-lab3$

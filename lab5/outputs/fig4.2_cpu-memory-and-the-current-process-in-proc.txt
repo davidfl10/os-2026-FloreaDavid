@@ -1,0 +1,19 @@
+david@david-VirtualBox:~/os-lab5$ grep -c processor /proc/cpuinfo
+2
+david@david-VirtualBox:~/os-lab5$ head -3 /proc/meminfo
+MemTotal:        3480328 kB
+MemFree:          154168 kB
+MemAvailable:    1561840 kB
+david@david-VirtualBox:~/os-lab5$ head -5 /proc/self/status
+Name:   head
+Umask:  0002
+State:  R (running)
+Tgid:   26809
+Ngid:   0
+david@david-VirtualBox:~/os-lab5$ ls -l /proc/self/fd
+total 0
+lrwx------ 1 david david 64 Oct 12 16:02 0 -> /dev/pts/2
+lrwx------ 1 david david 64 Oct 12 16:02 1 -> /dev/pts/2
+lrwx------ 1 david david 64 Oct 12 16:02 2 -> /dev/pts/2
+lr-x------ 1 david david 64 Oct 12 16:02 3 -> /proc/26810/fd
+david@david-VirtualBox:~/os-lab5$

@@ -1,0 +1,4 @@
+david@david-VirtualBox:~/os-lab7$ diff run.c zombie.c
+23a24
+>     sleep(20);                                   /* the new line */
+david@david-VirtualBox:~/os-lab7$

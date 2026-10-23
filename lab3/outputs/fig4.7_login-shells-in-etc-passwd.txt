@@ -1,0 +1,6 @@
+david@david-VirtualBox:~/os-lab3$ cut -d: -f7 /etc/passwd | sort | uniq -c | sort -rn
+     40 /usr/sbin/nologin
+      5 /bin/false
+      2 /bin/bash
+      1 /bin/sync
+david@david-VirtualBox:~/os-lab3$

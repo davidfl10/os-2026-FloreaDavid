@@ -1,0 +1,5 @@
+david@david-VirtualBox:~/os-lab7$ gcc -Wall -Wextra -o pipeline pipeline.c && ./pipeline
+242
+david@david-VirtualBox:~/os-lab7$ ls /etc | wc -l
+242
+david@david-VirtualBox:~/os-lab7$

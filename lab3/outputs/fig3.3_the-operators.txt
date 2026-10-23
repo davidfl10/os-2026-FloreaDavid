@@ -1,0 +1,16 @@
+david@david-VirtualBox:~/os-lab3$ echo first > notes.md ; echo second >> notes.md ; cat notes.md
+first
+second
+david@david-VirtualBox:~/os-lab3$ wc -l < access.log
+500
+david@david-VirtualBox:~/os-lab3$ wc -l access.log
+500 access.log
+david@david-VirtualBox:~/os-lab3$ ls /nope 2> /dev/null || echo "failed with code $?"
+failed with code 2
+david@david-VirtualBox:~/os-lab3$ mkdir -p tmp && cd tmp && echo "I am in $(pwd)" ; cd ~/os-lab3
+I am in /home/david/os-lab3/tmp
+david@david-VirtualBox:~/os-lab3$ false ; echo "; runs anyway"
+; runs anyway
+david@david-VirtualBox:~/os-lab3$ false && echo "&& - not printed"
+david@david-VirtualBox:~/os-lab3$ true || echo "|| - not printed"
+david@david-VirtualBox:~/os-lab3$

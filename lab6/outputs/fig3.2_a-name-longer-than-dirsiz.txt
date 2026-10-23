@@ -1,0 +1,37 @@
+$ mkdir averyveryverylongname
+$ ls
+.              1 1 1024
+..             1 1 1024
+averyveryveryl 1 30 32
+cat            2 3 36728
+echo           2 4 35592
+sleep          2 5 35280
+pingpong       2 6 36672
+args           2 7 35272
+mystat         2 8 36232
+find           2 9 43688
+forktest       2 10 18136
+grep           2 11 44184
+init           2 12 35976
+kill           2 13 35512
+ln             2 14 35304
+ls             2 15 42880
+mkdir          2 16 35568
+rm             2 17 35552
+sh             2 18 58312
+stressfs       2 19 36416
+usertests      2 20 206800
+grind          2 21 51824
+wc             2 22 37728
+zombie         2 23 34848
+logstress      2 24 37560
+forphan        2 25 36352
+dorphan        2 26 35800
+sync           2 27 34944
+console        3 28 0
+a              1 29 32
+r2             2 2 2441
+$ mystat averyveryverylongname averyveryveryl
+averyveryverylongname: directory, inode 30, links 1, size 32 bytes
+averyveryveryl: directory, inode 30, links 1, size 32 bytes
+$

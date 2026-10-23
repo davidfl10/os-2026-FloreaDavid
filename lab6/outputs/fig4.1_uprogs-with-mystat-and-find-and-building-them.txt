@@ -1,0 +1,16 @@
+david@david-VirtualBox:~/xv6-riscv$ grep -n -A9 '^UPROGS' Makefile
+132:UPROGS=\
+133-    $U/_cat\
+134-    $U/_echo\
+135-    $U/_sleep\
+136-    $U/_pingpong\
+137-    $U/_args\
+138-    $U/_mystat\
+139-    $U/_find\
+140-    $U/_forktest\
+141-    $U/_grep\
+david@david-VirtualBox:~/xv6-riscv$ touch user/find.c user/mystat.c ; make -s user/_find user/_mysta
+t && ls -l user/_find user/_mystat
+-rwxrwxr-x 1 david david 43688 Oct 12 16:16 user/_find
+-rwxrwxr-x 1 david david 36232 Oct 12 16:16 user/_mystat
+david@david-VirtualBox:~/xv6-riscv$

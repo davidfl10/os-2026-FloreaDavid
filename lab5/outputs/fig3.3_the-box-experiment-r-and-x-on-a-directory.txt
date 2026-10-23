@@ -1,0 +1,10 @@
+david@david-VirtualBox:~/os-lab5$ mkdir box ; echo hi > box/f
+david@david-VirtualBox:~/os-lab5$ chmod u=r,go= box  ; ls box ; cat box/f     # read only
+f
+cat: box/f: Permission denied
+david@david-VirtualBox:~/os-lab5$ chmod u=x,go= box  ; ls box ; cat box/f     # execute only
+ls: cannot open directory 'box': Permission denied
+hi
+david@david-VirtualBox:~/os-lab5$ chmod 755 box ; ls -ld box
+drwxr-xr-x 2 david david 4096 Oct 12 16:01 box
+david@david-VirtualBox:~/os-lab5$

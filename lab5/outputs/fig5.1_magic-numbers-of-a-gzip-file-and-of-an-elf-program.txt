@@ -1,0 +1,10 @@
+david@david-VirtualBox:~/os-lab5$ gzip -c /etc/passwd > notes.txt ; file notes.txt ; xxd notes.txt | head -1
+notes.txt: gzip compressed data, was "passwd", last modified: Mon Oct  5 09:18:32 2026, from Unix, original size
+ modulo 2^32 2769
+00000000: 1f8b 0808 686b c36a 0003 7061 7373 7764  ....hk.j..passwd
+david@david-VirtualBox:~/os-lab5$ readlink -f /usr/bin/ls ; xxd -l 16 $(readlink -f /usr/bin/ls)
+/usr/lib/cargo/bin/coreutils/ls
+00000000: 7f45 4c46 0201 0100 0000 0000 0000 0000  .ELF............
+david@david-VirtualBox:~/os-lab5$ file -L /usr/bin/ls | cut -c1-90
+/usr/bin/ls: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked,
+david@david-VirtualBox:~/os-lab5$

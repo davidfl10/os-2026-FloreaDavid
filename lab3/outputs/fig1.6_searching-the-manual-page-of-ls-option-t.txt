@@ -1,0 +1,26 @@
+       -t     Sort by modification time (the 'mtime' in the inode), newest first.
+
+       -v     Natural sort of (version) numbers in the filenames.
+
+       -X     Sort alphabetically by entry extension.
+
+       -U     Do  not  sort;  list  the files in whatever order they are stored in the directory.
+              This is especially useful when listing very large directories, since not doing  any
+              sorting can be noticeably faster.
+
+       -L, --dereference
+              When  showing  file  information for a symbolic link, show information for the file
+              the link references rather than the link itself.
+
+       --dereference-command-line-symlink-to-dir
+              Do not follow symlinks except when they link to directories and are given  as  com‐
+              mand line arguments.
+
+       -H, --dereference-command-line
+              Do not follow symlinks except when given as command line arguments.
+
+       -G, --no-group
+              Do not show group in long format.
+
+       --author
+ Manual page ls(1) line 146/293 60% (press h for help or q to quit)

@@ -1,0 +1,4 @@
+david@david-VirtualBox:~/os-lab3$ echo "user3: $(grep -cw user3 access.log) requests, $(grep -w user
+3 access.log | grep -c FAIL) failed"
+user3: 72 requests, 15 failed
+david@david-VirtualBox:~/os-lab3$

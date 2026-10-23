@@ -1,0 +1,18 @@
+david@david-VirtualBox:~/xv6-riscv$ grep -n "cd" user/sh.c | head
+170:        fprintf(2, "cannot cd %s\n", cmd + 3);
+david@david-VirtualBox:~/xv6-riscv$ sed -n '163,176p' user/sh.c
+      cmd++;
+    if (*cmd == '\n') // is a blank command
+      continue;
+    if (cmd[0] == 'c' && cmd[1] == 'd' && cmd[2] == ' ') {
+      // Chdir must be called by the parent, not the child.
+      cmd[strlen(cmd) - 1] = 0; // chop \n
+      if (chdir(cmd + 3) < 0)
+        fprintf(2, "cannot cd %s\n", cmd + 3);
+    } else {
+      if (fork1() == 0)
+        runcmd(parsecmd(cmd));
+      wait(0);
+    }
+  }
+david@david-VirtualBox:~/xv6-riscv$

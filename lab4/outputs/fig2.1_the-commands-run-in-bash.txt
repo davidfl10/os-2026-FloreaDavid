@@ -1,0 +1,26 @@
+david@david-VirtualBox:~$ mkdir ~/shtest && cd ~/shtest && touch README
+david@david-VirtualBox:~/shtest$ echo hello > f ; cat < f
+hello
+david@david-VirtualBox:~/shtest$ ls | grep READ
+README
+david@david-VirtualBox:~/shtest$ (echo a; echo b) | wc
+      2       2       4
+david@david-VirtualBox:~/shtest$ echo one ; echo two
+one
+two
+david@david-VirtualBox:~/shtest$ echo bg &
+[1] 25315
+bg
+david@david-VirtualBox:~/shtest$ ls *
+README  f
+[1]+  Done                       echo bg
+david@david-VirtualBox:~/shtest$ echo $HOME
+/home/david
+david@david-VirtualBox:~/shtest$ echo "a b"
+a b
+david@david-VirtualBox:~/shtest$ mkdir d ; cd d ; ls ..
+README  d  f
+david@david-VirtualBox:~/shtest/d$ mkdir d ; cd d ; ls ..^C
+david@david-VirtualBox:~/shtest/d$ ls ../README
+../README
+(reverse-i-search)`hello': echo hello > f ; cat < f

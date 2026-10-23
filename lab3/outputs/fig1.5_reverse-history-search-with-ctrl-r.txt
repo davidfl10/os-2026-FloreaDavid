@@ -1,0 +1,7 @@
+david@david-VirtualBox:~$ date
+Mon Oct 12 14:53:14 EEST 2026
+david@david-VirtualBox:~$ whoami
+david
+david@david-VirtualBox:~$ uname -r
+7.0.0-38-generic
+(reverse-i-search)`dat': date

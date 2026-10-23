@@ -1,0 +1,8 @@
+david@david-VirtualBox:~/os-lab5$ file /usr/bin/ls /etc/passwd /bin
+/usr/bin/ls: symbolic link to ../lib/cargo/bin/coreutils/ls
+/etc/passwd: ASCII text
+/bin:        symbolic link to usr/bin
+david@david-VirtualBox:~/os-lab5$ du -sh /var/log 2>/dev/null ; du -sh /usr 2>/dev/null
+43M     /var/log
+6.3G    /usr
+david@david-VirtualBox:~/os-lab5$

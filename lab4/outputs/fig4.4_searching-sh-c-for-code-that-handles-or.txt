@@ -1,0 +1,9 @@
+david@david-VirtualBox:~/xv6-riscv$ grep -n '\$' user/sh.c ; echo "matches for \$: exit $?"
+137:  write(2, "$ ", 2);
+matches for $: exit 0
+david@david-VirtualBox:~/xv6-riscv$ grep -n "'\*'" user/sh.c ; echo "matches for '*': exit $?"
+matches for '*': exit 1
+david@david-VirtualBox:~/xv6-riscv$ grep -n "whitespace\[\]\|symbols\[\]" user/sh.c
+268:char whitespace[] = " \t\r\n\v";
+269:char symbols[] = "<|>&;()";
+david@david-VirtualBox:~/xv6-riscv$

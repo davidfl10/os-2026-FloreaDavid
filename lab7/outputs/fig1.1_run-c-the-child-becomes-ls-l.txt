@@ -1,0 +1,16 @@
+david@david-VirtualBox:~/os-lab7$ gcc -Wall -Wextra -o run run.c && ./run
+parent: my PID is 35083
+child:  my PID is 35084, my parent is 35083
+total 108
+-rwxrwxr-x 1 david david 16296 Oct 19 16:39 pipeline
+-rw-rw-r-- 1 david david  1013 Oct 19 16:39 pipeline.c
+-rwxrwxr-x 1 david david 16328 Oct 19 16:39 pipeline3
+-rw-rw-r-- 1 david david  1346 Oct 19 16:39 pipeline3.c
+-rwxrwxr-x 1 david david 16336 Oct 19 16:39 redirect
+-rw-rw-r-- 1 david david   703 Oct 19 16:39 redirect.c
+-rwxrwxr-x 1 david david 16392 Oct 19 16:39 run
+-rw-rw-r-- 1 david david   911 Oct 19 16:39 run.c
+-rwxrwxr-x 1 david david 16432 Oct 19 16:39 zombie
+-rw-rw-r-- 1 david david   979 Oct 19 16:39 zombie.c
+parent: child 35084 ended with status 0
+david@david-VirtualBox:~/os-lab7$

@@ -1,0 +1,19 @@
+david@david-VirtualBox:~$ echo $PATH
+/home/david/.local/bin:/home/david/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbi
+n:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
+david@david-VirtualBox:~$ echo $PATH | tr ':' '\n'          # one directory per line
+/home/david/.local/bin
+/home/david/.local/bin
+/usr/local/sbin
+/usr/local/bin
+/usr/sbin
+/usr/bin
+/sbin
+/bin
+/usr/games
+/usr/local/games
+/snap/bin
+/snap/bin
+david@david-VirtualBox:~$ echo $PATH | tr ':' '\n' | wc -l
+12
+david@david-VirtualBox:~$

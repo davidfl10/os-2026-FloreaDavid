@@ -1,0 +1,10 @@
+david@david-VirtualBox:~/os-lab7$ sed -i 's|execlp("ls", "ls", "-l", (char \*)NULL);|execlp("date",
+"date", (char *)NULL);|' run.c
+david@david-VirtualBox:~/os-lab7$ grep -n execlp run.c
+18:        execlp("date", "date", (char *)NULL);  /* step 2: become ls */
+david@david-VirtualBox:~/os-lab7$ gcc -Wall -Wextra -o run run.c && ./run
+parent: my PID is 35108
+child:  my PID is 35109, my parent is 35108
+Mon Oct 19 16:39:41 EEST 2026
+parent: child 35109 ended with status 0
+david@david-VirtualBox:~/os-lab7$

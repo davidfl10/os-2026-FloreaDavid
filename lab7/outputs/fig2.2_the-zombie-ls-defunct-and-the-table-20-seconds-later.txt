@@ -1,0 +1,15 @@
+david@david-VirtualBox:~/os-lab7$ gcc -Wall -Wextra -o zombie zombie.c
+david@david-VirtualBox:~/os-lab7$ ./zombie > /dev/null &
+[1] 35231
+david@david-VirtualBox:~/os-lab7$ sleep 2; ps -o pid,ppid,stat,cmd
+    PID    PPID STAT CMD
+  35214   35211 Ss   /usr/bin/bash --norc --noprofile -i
+  35231   35214 S    ./zombie
+  35232   35231 Z    [ls] <defunct>
+  35234   35214 R+   ps -o pid,ppid,stat,cmd
+david@david-VirtualBox:~/os-lab7$ sleep 20; ps -o pid,ppid,stat,cmd
+[1]+  Done                       ./zombie > /dev/null
+    PID    PPID STAT CMD
+  35214   35211 Ss   /usr/bin/bash --norc --noprofile -i
+  35240   35214 R+   ps -o pid,ppid,stat,cmd
+david@david-VirtualBox:~/os-lab7$

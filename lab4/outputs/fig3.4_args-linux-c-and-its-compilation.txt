@@ -1,0 +1,14 @@
+david@david-VirtualBox:~/os-lab4$ cat args_linux.c
+#include <stdio.h>
+
+int
+main(int argc, char *argv[])
+{
+  printf("argc = %d\n", argc);
+  for(int i = 0; i < argc; i++)
+    printf("argv[%d] = [%s]\n", i, argv[i]);
+  return 0;
+}
+david@david-VirtualBox:~/os-lab4$ gcc -o args args_linux.c && ls
+args  args.c  args_linux.c  sleep.c
+david@david-VirtualBox:~/os-lab4$

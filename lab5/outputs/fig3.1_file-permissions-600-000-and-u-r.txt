@@ -1,0 +1,8 @@
+david@david-VirtualBox:~/os-lab5$ echo secret > s.txt
+david@david-VirtualBox:~/os-lab5$ chmod 600 s.txt ; ls -l s.txt
+-rw------- 1 david david 7 Oct 12 16:01 s.txt
+david@david-VirtualBox:~/os-lab5$ chmod 000 s.txt ; cat s.txt
+cat: s.txt: Permission denied
+david@david-VirtualBox:~/os-lab5$ chmod u+r s.txt ; cat s.txt
+secret
+david@david-VirtualBox:~/os-lab5$

@@ -1,0 +1,6 @@
+david@david-VirtualBox:~/os-lab3$ report.sh access.log
+bash: report.sh: command not found
+david@david-VirtualBox:~/os-lab3$ type report.sh ; echo $PATH | tr ":" "\n" | grep -c os-lab3
+bash: type: report.sh: not found
+0
+david@david-VirtualBox:~/os-lab3$

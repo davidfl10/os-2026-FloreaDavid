@@ -1,0 +1,32 @@
+david@david-VirtualBox:~/xv6-riscv$ make qemu
+qemu-system-riscv64 -machine virt -bios none -kernel kernel/kernel -m 128M -smp 3 -nographic -global
+ virtio-mmio.force-legacy=false -drive file=fs.img,if=none,format=raw,id=x0 -device virtio-blk-devic
+e,drive=x0,bus=virtio-mmio-bus.0
+
+xv6 kernel is booting
+
+hart 1 starting
+hart 2 starting
+init: starting sh
+$ args one              two         three
+argc = 4
+argv[0] = [args]
+argv[1] = [one]
+argv[2] = [two]
+argv[3] = [three]
+$ args *.c "x y"
+argc = 4
+argv[0] = [args]
+argv[1] = [*.c]
+argv[2] = ["x]
+argv[3] = [y"]
+$ args $HOME
+argc = 2
+argv[0] = [args]
+argv[1] = [$HOME]
+$ args 'single quoted'
+argc = 3
+argv[0] = [args]
+argv[1] = ['single]
+argv[2] = [quoted']
+$

@@ -1,0 +1,10 @@
+david@david-VirtualBox:~/os-lab5$ ls /
+bin   cdrom  etc   lib    lost+found  mnt  proc  run   snap  swap.img  tmp  var
+boot  dev    home  lib64  media       opt  root  sbin  srv   sys       usr
+david@david-VirtualBox:~/os-lab5$ ls -ld /etc /etc/passwd /bin /dev/null /tmp
+lrwxrwxrwx   1 root root     7 Apr 20 11:46 /bin -> usr/bin
+crw-rw-rw-   1 root root  1, 3 Oct  5 14:34 /dev/null
+drwxr-xr-x 148 root root 12288 Oct 12 15:31 /etc
+-rw-r--r--   1 root root  2769 Oct  5 12:18 /etc/passwd
+drwxrwxrwt  17 root root   460 Oct 12 16:00 /tmp
+david@david-VirtualBox:~/os-lab5$

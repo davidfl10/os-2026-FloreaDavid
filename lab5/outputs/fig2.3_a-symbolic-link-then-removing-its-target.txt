@@ -1,0 +1,11 @@
+david@david-VirtualBox:~/os-lab5$ ln -s hard.txt soft.txt
+david@david-VirtualBox:~/os-lab5$ ls -li hard.txt soft.txt
+527796 -rw-rw-r-- 1 david david 6 Oct 12 16:01 hard.txt
+527814 lrwxrwxrwx 1 david david 8 Oct 12 16:01 soft.txt -> hard.txt
+david@david-VirtualBox:~/os-lab5$ cat soft.txt
+hello
+david@david-VirtualBox:~/os-lab5$ rm hard.txt
+david@david-VirtualBox:~/os-lab5$ cat soft.txt ; ls -l soft.txt
+cat: soft.txt: No such file or directory
+lrwxrwxrwx 1 david david 8 Oct 12 16:01 soft.txt -> hard.txt
+david@david-VirtualBox:~/os-lab5$

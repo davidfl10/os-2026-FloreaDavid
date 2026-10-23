@@ -1,0 +1,8 @@
+david@david-VirtualBox:~/os-lab5$ ls -l /usr/bin/passwd ; ls -ld /tmp
+-rwsr-xr-x 1 root root 93640 Feb  2  2026 /usr/bin/passwd
+drwxrwxrwt 17 root root 460 Oct 12 16:00 /tmp
+david@david-VirtualBox:~/os-lab5$ cat /etc/shadow
+cat: /etc/shadow: Permission denied
+david@david-VirtualBox:~/os-lab5$ ls -l /etc/shadow
+-rw-r----- 1 root shadow 1311 Oct  5 12:29 /etc/shadow
+david@david-VirtualBox:~/os-lab5$

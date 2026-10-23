@@ -1,0 +1,5 @@
+david@david-VirtualBox:~/os-lab7$ gcc -Wall -Wextra -o pipeline3 pipeline3.c && ./pipeline3
+312
+david@david-VirtualBox:~/os-lab7$ ls /usr/bin | grep x | wc -l
+312
+david@david-VirtualBox:~/os-lab7$

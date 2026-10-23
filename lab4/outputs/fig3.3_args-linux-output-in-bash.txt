@@ -1,0 +1,22 @@
+david@david-VirtualBox:~/os-lab4$ ./args one              two         three
+argc = 4
+argv[0] = [./args]
+argv[1] = [one]
+argv[2] = [two]
+argv[3] = [three]
+david@david-VirtualBox:~/os-lab4$ ./args *.c "x y"
+argc = 5
+argv[0] = [./args]
+argv[1] = [args.c]
+argv[2] = [args_linux.c]
+argv[3] = [sleep.c]
+argv[4] = [x y]
+david@david-VirtualBox:~/os-lab4$ ./args $HOME
+argc = 2
+argv[0] = [./args]
+argv[1] = [/home/david]
+david@david-VirtualBox:~/os-lab4$ ./args 'single quoted'
+argc = 2
+argv[0] = [./args]
+argv[1] = [single quoted]
+david@david-VirtualBox:~/os-lab4$

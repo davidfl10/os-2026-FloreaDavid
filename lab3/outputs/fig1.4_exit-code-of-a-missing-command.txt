@@ -1,0 +1,4 @@
+david@david-VirtualBox:~$ nosuchprog ; echo "exit code: $?"
+bash: nosuchprog: command not found
+exit code: 127
+david@david-VirtualBox:~$

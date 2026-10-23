@@ -1,0 +1,7 @@
+david@david-VirtualBox:~/xv6-riscv$ sed -i -e 's|{ "ls", 0 }|{ "echo", "hello", "from", "the", "chil
+d", 0 }|' -e 's|exec("nosuchprog", args);                   // step 2: become ls|exec("echo", args);
+                 // step 2: become echo|' user/run.c
+david@david-VirtualBox:~/xv6-riscv$ grep -n "args" user/run.c
+18:    char *args[] = { "echo", "hello", "from", "the", "child", 0 };
+19:    exec("echo", args);                 // step 2: become echo
+david@david-VirtualBox:~/xv6-riscv$

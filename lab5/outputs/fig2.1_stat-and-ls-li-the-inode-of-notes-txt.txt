@@ -1,0 +1,13 @@
+david@david-VirtualBox:~/os-lab5$ echo hello > notes.txt
+david@david-VirtualBox:~/os-lab5$ stat notes.txt
+  File: notes.txt
+  size: 6               Blocks: 8          IO Block: 4096   regular file
+Device: 8,2     Inode: 527796      Links: 1
+Access: (0664/-rw-rw-r--)  Uid: ( 1000/   david)   Gid: ( 1000/   david)
+Access: 2026-10-12 16:01:35.354169027 +0300
+Modify: 2026-10-12 16:01:35.158631724 +0300
+Change: 2026-10-12 16:01:35.158631724 +0300
+ Birth: 2026-10-12 16:01:35.158022295 +0300
+david@david-VirtualBox:~/os-lab5$ ls -li notes.txt
+527796 -rw-rw-r-- 1 david david 6 Oct 12 16:01 notes.txt
+david@david-VirtualBox:~/os-lab5$

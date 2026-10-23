@@ -1,0 +1,8 @@
+david@david-VirtualBox:~/os-lab3/play$ echo {1..5} ; echo $((7 * 6))
+1 2 3 4 5
+42
+david@david-VirtualBox:~/os-lab3/play$ echo "today is $(date +%A), I am $(whoami)"
+today is Monday, I am david
+david@david-VirtualBox:~/os-lab3/play$ touch log{1..3}.txt && ls log*
+log1.txt  log2.txt  log3.txt
+david@david-VirtualBox:~/os-lab3/play$

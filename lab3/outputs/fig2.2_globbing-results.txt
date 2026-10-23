@@ -1,0 +1,9 @@
+david@david-VirtualBox:~/os-lab3/play$ echo *.c
+a.c b.c
+david@david-VirtualBox:~/os-lab3/play$ echo file?.txt
+file1.txt file2.txt
+david@david-VirtualBox:~/os-lab3/play$ echo [a-b]*
+a.c alfa beta.txt b.c
+david@david-VirtualBox:~/os-lab3/play$ echo *.xyz
+*.xyz
+david@david-VirtualBox:~/os-lab3/play$

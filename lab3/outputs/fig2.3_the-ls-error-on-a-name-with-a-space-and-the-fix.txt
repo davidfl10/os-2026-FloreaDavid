@@ -1,0 +1,16 @@
+david@david-VirtualBox:~/os-lab3/play$ ls alfa beta.txt
+ls: cannot access 'alfa': No such file or directory
+ls: cannot access 'beta.txt': No such file or directory
+david@david-VirtualBox:~/os-lab3/play$ ls "alfa beta.txt"
+'alfa beta.txt'
+david@david-VirtualBox:~/os-lab3/play$ ls alfa\ beta.txt
+'alfa beta.txt'
+david@david-VirtualBox:~/os-lab3/play$ ls -l
+total 0
+-rw-rw-r-- 1 david david 0 Oct 12 14:54  a.c
+-rw-rw-r-- 1 david david 0 Oct 12 14:54 'alfa beta.txt'
+-rw-rw-r-- 1 david david 0 Oct 12 14:54  b.c
+-rw-rw-r-- 1 david david 0 Oct 12 14:54  file1.txt
+-rw-rw-r-- 1 david david 0 Oct 12 14:54  file2.txt
+-rw-rw-r-- 1 david david 0 Oct 12 14:54  notes.txt
+david@david-VirtualBox:~/os-lab3/play$

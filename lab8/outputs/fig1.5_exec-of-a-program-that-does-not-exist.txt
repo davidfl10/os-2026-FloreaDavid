@@ -1,0 +1,5 @@
+david@david-VirtualBox:~/xv6-riscv$ sed -i 's|exec("ls", args); |exec("nosuchprog", args); |' user/r
+un.c
+david@david-VirtualBox:~/xv6-riscv$ grep -n "exec(" user/run.c
+19:    exec("nosuchprog", args);                   // step 2: become ls
+david@david-VirtualBox:~/xv6-riscv$

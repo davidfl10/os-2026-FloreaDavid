@@ -1,0 +1,9 @@
+david@david-VirtualBox:~/os-lab5$ ln notes.txt hard.txt
+david@david-VirtualBox:~/os-lab5$ ls -li notes.txt hard.txt
+527796 -rw-rw-r-- 2 david david 6 Oct 12 16:01 hard.txt
+527796 -rw-rw-r-- 2 david david 6 Oct 12 16:01 notes.txt
+david@david-VirtualBox:~/os-lab5$ rm notes.txt
+david@david-VirtualBox:~/os-lab5$ cat hard.txt ; ls -li hard.txt
+hello
+527796 -rw-rw-r-- 1 david david 6 Oct 12 16:01 hard.txt
+david@david-VirtualBox:~/os-lab5$

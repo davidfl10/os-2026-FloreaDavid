@@ -1,0 +1,5 @@
+david@david-VirtualBox:~$ mkdir -p ~/os-lab3/play && cd ~/os-lab3/play
+david@david-VirtualBox:~/os-lab3/play$ touch a.c b.c file1.txt file2.txt notes.txt "alfa beta.txt"
+david@david-VirtualBox:~/os-lab3/play$ ls
+ a.c  'alfa beta.txt'   b.c   file1.txt   file2.txt   notes.txt
+david@david-VirtualBox:~/os-lab3/play$

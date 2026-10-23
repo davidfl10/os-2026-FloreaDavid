@@ -1,0 +1,20 @@
+david@david-VirtualBox:~/os-lab5$ dd if=/dev/zero of=bigfile bs=1M count=100 status=none ; df -m . |
+ tail -1
+/dev/sda2          19984 12940      6005  69% /
+david@david-VirtualBox:~/os-lab5$ exec 3< bigfile ; rm bigfile ; ls -l /proc/$$/fd
+total 0
+lrwx------ 1 david david 64 Oct 12 16:02 0 -> /dev/pts/3
+lrwx------ 1 david david 64 Oct 12 16:02 1 -> /dev/pts/3
+lrwx------ 1 david david 64 Oct 12 16:02 2 -> /dev/pts/3
+lrwx------ 1 david david 64 Oct 12 16:02 255 -> /dev/pts/3
+lr-x------ 1 david david 64 Oct 12 16:02 3 -> '/home/david/os-lab5/bigfile (deleted)'
+david@david-VirtualBox:~/os-lab5$ df -m . | tail -1
+/dev/sda2          19984 12940      6005  69% /
+david@david-VirtualBox:~/os-lab5$ exec 3<&- ; ls -l /proc/$$/fd ; df -m . | tail -1
+total 0
+lrwx------ 1 david david 64 Oct 12 16:02 0 -> /dev/pts/3
+lrwx------ 1 david david 64 Oct 12 16:02 1 -> /dev/pts/3
+lrwx------ 1 david david 64 Oct 12 16:02 2 -> /dev/pts/3
+lrwx------ 1 david david 64 Oct 12 16:02 255 -> /dev/pts/3
+/dev/sda2          19984 12840      6105  68% /
+david@david-VirtualBox:~/os-lab5$

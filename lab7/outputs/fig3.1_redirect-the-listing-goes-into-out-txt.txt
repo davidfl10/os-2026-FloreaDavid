@@ -1,0 +1,10 @@
+david@david-VirtualBox:~/os-lab7$ gcc -Wall -Wextra -o redirect redirect.c && ./redirect
+open gave descriptor 1
+done: the listing is in out.txt
+david@david-VirtualBox:~/os-lab7$ head -3 out.txt
+total 108
+-rw-r--r-- 1 david david     0 Oct 19 16:40 out.txt
+-rwxrwxr-x 1 david david 16296 Oct 19 16:39 pipeline
+david@david-VirtualBox:~/os-lab7$ ls -l out.txt
+-rw-r--r-- 1 david david 590 Oct 19 16:40 out.txt
+david@david-VirtualBox:~/os-lab7$

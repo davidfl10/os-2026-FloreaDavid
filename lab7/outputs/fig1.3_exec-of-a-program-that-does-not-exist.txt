@@ -1,0 +1,10 @@
+david@david-VirtualBox:~/os-lab7$ sed -i 's|execlp("date", "date", (char \*)NULL);|execlp("nosuchpro
+g", "nosuchprog", (char *)NULL);|' run.c
+david@david-VirtualBox:~/os-lab7$ grep -n execlp run.c
+18:        execlp("nosuchprog", "nosuchprog", (char *)NULL);  /* step 2: become ls */
+david@david-VirtualBox:~/os-lab7$ gcc -Wall -Wextra -o run run.c && ./run
+parent: my PID is 35121
+child:  my PID is 35122, my parent is 35121
+exec: No such file or directory
+parent: child 35122 ended with status 127
+david@david-VirtualBox:~/os-lab7$

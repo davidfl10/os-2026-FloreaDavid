@@ -1,0 +1,17 @@
+david@david-VirtualBox:~/xv6-riscv$ grep -n "define BSIZE\|define NDIRECT\|define NINDIRECT\|define DIRS
+IZ" kernel/fs.h
+5:#define BSIZE   1024 // block size
+26:#define NDIRECT   12
+27:#define NINDIRECT (BSIZE / sizeof(uint))
+54:#define DIRSIZ 14
+david@david-VirtualBox:~/xv6-riscv$ make clean ; make fs.img 2>&1 | grep nmeta
+rm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
+*/*.o */*.d */*.asm */*.sym \
+kernel/kernel fs.img \
+mkfs/mkfs .gdbinit \
+        user/usys.S \
+user/_cat user/_echo user/_sleep user/_pingpong user/_args user/_mystat user/_find user/_forktest user/_
+grep user/_init user/_kill user/_ln user/_ls user/_mkdir user/_rm user/_sh user/_stressfs user/_usertest
+s user/_grind user/_wc user/_zombie user/_logstress user/_forphan user/_dorphan user/_sync
+nmeta 47 (boot, super, log blocks 31, inode blocks 13, bitmap blocks 1) blocks 1953 total 2000
+david@david-VirtualBox:~/xv6-riscv$

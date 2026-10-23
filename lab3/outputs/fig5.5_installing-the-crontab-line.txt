@@ -1,0 +1,8 @@
+david@david-VirtualBox:~/os-lab3$ echo '* * * * * /home/david/os-lab3/report.sh /home/david/os-lab3/
+access.log >> /home/david/os-lab3/report.log 2>&1' | crontab -
+david@david-VirtualBox:~/os-lab3$ crontab -l
+* * * * * /home/david/os-lab3/report.sh /home/david/os-lab3/access.log >> /home/david/os-lab3/report
+.log 2>&1
+david@david-VirtualBox:~/os-lab3$ date
+Mon Oct 12 14:52:29 EEST 2026
+david@david-VirtualBox:~/os-lab3$

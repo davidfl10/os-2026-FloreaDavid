@@ -1,0 +1,14 @@
+david@david-VirtualBox:~/os-lab3$ ls /etc /nope > all.txt 2>&1 ; tail -2 all.txt
+xml
+zsh_command_not_found
+david@david-VirtualBox:~/os-lab3$ head -2 all.txt ; wc -l all.txt
+ls: cannot access '/nope': No such file or directory
+/etc:
+243 all.txt
+david@david-VirtualBox:~/os-lab3$ ls /etc /nope 2>&1 > all.txt
+ls: cannot access '/nope': No such file or directory
+david@david-VirtualBox:~/os-lab3$ head -2 all.txt ; wc -l all.txt
+/etc:
+ModemManager
+242 all.txt
+david@david-VirtualBox:~/os-lab3$

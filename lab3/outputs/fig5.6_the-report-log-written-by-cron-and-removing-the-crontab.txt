@@ -1,0 +1,23 @@
+david@david-VirtualBox:~/os-lab3$ date ; grep -c requests report.log
+Mon Oct 12 14:56:03 EEST 2026
+4
+david@david-VirtualBox:~/os-lab3$ tail -16 report.log
+500 requests, 100 failed
+user0: 14 failures
+user1: 14 failures
+user2: 14 failures
+user3: 15 failures
+user4: 14 failures
+user5: 15 failures
+user6: 14 failures
+500 requests, 100 failed
+user0: 14 failures
+user1: 14 failures
+user2: 14 failures
+user3: 15 failures
+user4: 14 failures
+user5: 15 failures
+user6: 14 failures
+david@david-VirtualBox:~/os-lab3$ crontab -r ; crontab -l
+no crontab for david
+david@david-VirtualBox:~/os-lab3$

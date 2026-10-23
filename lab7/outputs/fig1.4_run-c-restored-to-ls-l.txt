@@ -1,0 +1,8 @@
+david@david-VirtualBox:~/os-lab7$ sed -i 's|execlp("nosuchprog", "nosuchprog", (char \*)NULL);|execl
+p("ls", "ls", "-l", (char *)NULL);|' run.c
+david@david-VirtualBox:~/os-lab7$ grep -n execlp run.c
+18:        execlp("ls", "ls", "-l", (char *)NULL);  /* step 2: become ls */
+david@david-VirtualBox:~/os-lab7$ gcc -Wall -Wextra -o run run.c && ./run | tail -2
+-rw-rw-r-- 1 david david   979 Oct 19 16:39 zombie.c
+parent: child 35134 ended with status 0
+david@david-VirtualBox:~/os-lab7$

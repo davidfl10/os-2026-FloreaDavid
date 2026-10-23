@@ -1,0 +1,7 @@
+david@david-VirtualBox:~/os-lab5$ umask ; touch new.txt ; mkdir newdir ; ls -ld new.txt newdir
+0002
+-rw-rw-r-- 1 david david    0 Oct 12 16:01 new.txt
+drwxrwxr-x 2 david david 4096 Oct 12 16:01 newdir
+david@david-VirtualBox:~/os-lab5$ umask -S
+u=rwx,g=rwx,o=rx
+david@david-VirtualBox:~/os-lab5$

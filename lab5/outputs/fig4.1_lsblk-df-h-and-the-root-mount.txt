@@ -1,0 +1,35 @@
+david@david-VirtualBox:~/os-lab5$ lsblk
+NAME   MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
+loop0    7:0    0     4K  1 loop /snap/bare/5
+loop1    7:1    0  66.8M  1 loop /snap/core24/1643
+loop2    7:2    0 260.3M  1 loop /snap/firefox/8763
+loop3    7:3    0    20M  1 loop /snap/desktop-security-center/151
+loop4    7:4    0  91.7M  1 loop /snap/gtk-common-themes/1535
+loop5    7:5    0  16.5M  1 loop /snap/firmware-updater/226
+loop6    7:6    0   1.5M  1 loop /snap/hwctl/123
+loop7    7:7    0  18.8M  1 loop /snap/prompting-client/222
+loop8    7:8    0   402M  1 loop /snap/mesa-2404/1839
+loop9    7:9    0 614.5M  1 loop /snap/gnome-46-2404/164
+loop10   7:10   0   828K  1 loop /snap/snapd-desktop-integration/391
+loop11   7:11   0  11.8M  1 loop /snap/snap-store/1390
+loop12   7:12   0  50.1M  1 loop /snap/snapd/27710
+loop13   7:13   0   1.5M  1 loop /snap/hwctl/131
+loop14   7:14   0  18.4M  1 loop /snap/prompting-client/228
+loop15   7:15   0  14.2M  1 loop /snap/desktop-security-center/206
+sda      8:0    0    20G  0 disk
+├─sda1   8:1    0     1M  0 part
+└─sda2   8:2    0    20G  0 part /
+sr0     11:0    1  50.7M  1 rom  /run/media/david/VBox_GAs_7.2.20
+david@david-VirtualBox:~/os-lab5$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           680M  3.3M  677M   1% /run
+/dev/sda2        20G   13G  6.0G  68% /
+tmpfs           1.7G  4.0K  1.7G   1% /dev/shm
+tmpfs           1.7G   37M  1.7G   3% /tmp
+/dev/sr0         51M   51M     0 100% /run/media/david/VBox_GAs_7.2.20
+none            1.0M     0  1.0M   0% /run/credentials/systemd-resolved.service
+none            1.0M     0  1.0M   0% /run/credentials/systemd-journald.service
+tmpfs           340M  4.1M  336M   2% /run/user/1000
+david@david-VirtualBox:~/os-lab5$ mount | grep " / "
+/dev/sda2 on / type ext4 (rw,relatime)
+david@david-VirtualBox:~/os-lab5$

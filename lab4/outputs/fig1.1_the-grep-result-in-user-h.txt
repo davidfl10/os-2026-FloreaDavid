@@ -1,0 +1,4 @@
+david@david-VirtualBox:~$ cd ~/xv6-riscv
+david@david-VirtualBox:~/xv6-riscv$ grep -n "pause\|sleep" user/user.h
+25:int pause(int);
+david@david-VirtualBox:~/xv6-riscv$

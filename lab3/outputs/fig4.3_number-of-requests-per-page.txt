@@ -1,0 +1,6 @@
+david@david-VirtualBox:~/os-lab3$ cut -d' ' -f5 access.log | sort | uniq -c
+    125 /page0
+    125 /page1
+    125 /page2
+    125 /page3
+david@david-VirtualBox:~/os-lab3$
